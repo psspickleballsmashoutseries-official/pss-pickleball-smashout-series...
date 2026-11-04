@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,24 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#07152b">
 <title>PSS | Pickleball Smash Out Series</title>
-
 <style>
-:root {
- --navy:#07152b;
- --panel:#10233f;
- --lime:#d9ee55;
- --teal:#38c7b4;
- --muted:#aab8cc;
- --white:#f7f9fc;
-}
+:root{--navy:#07152b;--panel:#10233f;--lime:#d9ee55;--teal:#38c7b4;--muted:#aab8cc;--white:#f7f9fc}
 *{box-sizing:border-box}
-body{
- margin:0;
- background:radial-gradient(circle at 50% -15%,#1e4564 0,#07152b 48%,#050c18 100%);
- color:var(--white);
- font-family:Arial,Helvetica,sans-serif;
- min-height:100vh;
-}
+body{margin:0;background:radial-gradient(circle at 50% -15%,#1e4564 0,#07152b 48%,#050c18 100%);color:var(--white);font-family:Arial,Helvetica,sans-serif;min-height:100vh}
 header{padding:22px 16px 10px;text-align:center}
 .logo{width:min(220px,55vw);height:auto;object-fit:contain}
 .eyebrow{color:var(--lime);letter-spacing:3px;font-size:11px;font-weight:800;margin:5px 0}
@@ -32,25 +17,10 @@ main{max-width:1100px;margin:auto;padding:12px 16px 60px}
 .topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:12px 0 18px}
 .live{color:var(--teal);font-size:12px;font-weight:bold}
 .tabs{display:flex;gap:7px;flex-wrap:wrap}
-.tab,button{
- border:1px solid #34506e;
- background:#10233f;
- color:white;
- padding:10px 14px;
- border-radius:10px;
- cursor:pointer;
- font-weight:700;
-}
+.tab,button{border:1px solid #34506e;background:#10233f;color:white;padding:10px 14px;border-radius:10px;cursor:pointer;font-weight:700}
 .tab.active,button.primary{background:var(--lime);color:#14213a;border-color:var(--lime)}
 button:disabled{opacity:.4;cursor:not-allowed}
-.panel{
- background:linear-gradient(145deg,#112746,#0d1d35);
- border:1px solid #294363;
- border-radius:16px;
- padding:17px;
- margin:12px 0;
- box-shadow:0 10px 30px #0003;
-}
+.panel{background:linear-gradient(145deg,#112746,#0d1d35);border:1px solid #294363;border-radius:16px;padding:17px;margin:12px 0;box-shadow:0 10px 30px #0003}
 .panel h2{margin:0 0 13px;font-size:18px}
 .muted{color:var(--muted)}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
@@ -71,10 +41,7 @@ th,td{text-align:left;padding:11px 9px;border-bottom:1px solid #294363;font-size
 th{color:var(--muted);font-size:10px;letter-spacing:.8px;text-transform:uppercase}
 .rank{color:var(--lime);font-weight:900}
 .formrow{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
-.formrow input,.formrow select{
- background:#07152b;border:1px solid #34506e;color:white;
- border-radius:9px;padding:10px;min-width:0;
-}
+.formrow input,.formrow select{background:#07152b;border:1px solid #34506e;color:white;border-radius:9px;padding:10px;min-width:0}
 .formrow input{flex:1}
 .notice{padding:12px;border-radius:10px;background:#152e4d;color:#c8d7e9;font-size:13px;line-height:1.5}
 .success{border:1px solid #236d5d;background:#10372f;color:#a7f3dc}
@@ -89,19 +56,18 @@ th{color:var(--muted);font-size:10px;letter-spacing:.8px;text-transform:uppercas
 .photo{max-width:180px;max-height:180px;object-fit:cover;border-radius:12px;margin:8px}
 #saveMessage{margin:10px 0}
 @media(max-width:650px){
- .stats{grid-template-columns:repeat(2,1fr)}
- .grid{grid-template-columns:1fr}
- .panel{padding:13px}
- header{padding-top:15px}
- .logo{width:180px}
- .tabs{width:100%}
- .tab{flex:1}
+.stats{grid-template-columns:repeat(2,1fr)}
+.grid{grid-template-columns:1fr}
+.panel{padding:13px}
+header{padding-top:15px}
+.logo{width:180px}
+.tabs{width:100%}
+.tab{flex:1}
 }
 </style>
 </head>
 
 <body>
-
 <header>
 <img class="logo" src="pss-logo.png" alt="PSS Logo" onerror="this.style.display='none'">
 <div class="eyebrow">PICKLEBALL SMASH OUT SERIES</div>
@@ -109,143 +75,139 @@ th{color:var(--muted);font-size:10px;letter-spacing:.8px;text-transform:uppercas
 </header>
 
 <main>
-
 <div class="topbar">
- <div>
-  <div class="live">● LIVE TOURNAMENT BOARD</div>
-  <div class="small" id="connection">Connecting to live scoreboard…</div>
- </div>
- <nav class="tabs">
-  <button class="tab active" data-tab="overview">Overview</button>
-  <button class="tab" data-tab="fixtures">Fixtures</button>
-  <button class="tab" data-tab="standings">Standings</button>
-  <button class="tab" data-tab="finals">Finals</button>
-  <button class="tab" data-tab="history">History</button>
-  <button class="tab" data-tab="organizer">Organizer</button>
- </nav>
+<div>
+<div class="live">● LIVE TOURNAMENT BOARD</div>
+<div class="small" id="connection">Connecting to live scoreboard…</div>
+</div>
+<nav class="tabs">
+<button class="tab active" data-tab="overview">Overview</button>
+<button class="tab" data-tab="fixtures">Fixtures</button>
+<button class="tab" data-tab="standings">Standings</button>
+<button class="tab" data-tab="finals">Finals</button>
+<button class="tab" data-tab="history">History</button>
+<button class="tab" data-tab="organizer">Organizer</button>
+</nav>
 </div>
 
 <section id="overview" class="view">
- <div class="stats">
-  <div class="stat"><strong id="totalMatches">15</strong><span>LEAGUE MATCHES</span></div>
-  <div class="stat"><strong id="doneMatches">0</strong><span>COMPLETED</span></div>
-  <div class="stat"><strong id="liveMatches">0</strong><span>PLAYING NOW</span></div>
-  <div class="stat"><strong id="teamsCount">6</strong><span>TEAMS</span></div>
- </div>
-
- <div class="panel">
-  <div class="sectiontitle"><h2>Matches in progress</h2><span class="tag playing">LIVE</span></div>
-  <div id="liveList" class="grid"><p class="muted">No matches started yet.</p></div>
- </div>
-
- <div class="panel">
-  <h2>Next available fixtures</h2>
-  <p class="small">A team already playing cannot start another match.</p>
-  <div id="nextList" class="grid"></div>
- </div>
-
- <div class="panel">
-  <h2>How PSS works</h2>
-  <div class="notice">
-   LEVEL 1 · Six teams play a single round-robin league. Every team faces each opponent once (5 matches each).
-   <br><br>
-   LEVEL 2 · The top two qualify for one Grand Final. A qualifying tie after all tie-breakers must be settled by an organizer-arranged tie-breaker.
-  </div>
- </div>
+<div class="stats">
+<div class="stat"><strong id="totalMatches">15</strong><span>LEAGUE MATCHES</span></div>
+<div class="stat"><strong id="doneMatches">0</strong><span>COMPLETED</span></div>
+<div class="stat"><strong id="liveMatches">0</strong><span>PLAYING NOW</span></div>
+<div class="stat"><strong id="teamsCount">6</strong><span>TEAMS</span></div>
+</div>
+<div class="panel">
+<div class="sectiontitle"><h2>Matches in progress</h2><span class="tag playing">LIVE</span></div>
+<div id="liveList" class="grid"><p class="muted">No matches started yet.</p></div>
+</div>
+<div class="panel">
+<h2>Next available fixtures</h2>
+<p class="small">A team already playing cannot start another match.</p>
+<div id="nextList" class="grid"></div>
+</div>
+<div class="panel">
+<h2>How PSS works</h2>
+<div class="notice">
+LEVEL 1 · Six teams play a single round-robin league. Every team faces each opponent once (5 matches each).
+<br><br>
+LEVEL 2 · The top two qualify for one Grand Final. A qualifying tie after all tie-breakers must be settled by an organizer-arranged tie-breaker.
+</div>
+</div>
 </section>
 
 <section id="fixtures" class="view hidden">
- <div class="panel"><h2>Level 1 · League fixtures</h2><div id="fixturesList" class="grid"></div></div>
+<div class="panel"><h2>Level 1 · League fixtures</h2><div id="fixturesList" class="grid"></div></div>
 </section>
 
 <section id="standings" class="view hidden">
- <div class="panel">
-  <h2>Level 1 · Live standings</h2>
-  <div class="tablewrap">
-   <table>
-    <thead>
-     <tr><th>#</th><th>Team</th><th>P</th><th>W</th><th>L</th><th>Pts</th><th>Point diff.</th><th>Scored</th></tr>
-    </thead>
-    <tbody id="standingsBody"></tbody>
-   </table>
-  </div>
-  <p class="small">Win = +2 league points · Loss = −2 league points. Ranking: wins → point difference → points scored → head-to-head.</p>
- </div>
+<div class="panel">
+<h2>Level 1 · Live standings</h2>
+<div class="tablewrap">
+<table>
+<thead>
+<tr><th>#</th><th>Team</th><th>P</th><th>W</th><th>L</th><th>Pts</th><th>Point diff.</th><th>Scored</th></tr>
+</thead>
+<tbody id="standingsBody"></tbody>
+</table>
+</div>
+<p class="small">Win = +2 league points · Loss = −2 league points. Ranking: wins → point difference → points scored → head-to-head.</p>
+</div>
 </section>
 
 <section id="finals" class="view hidden">
- <div class="panel">
-  <h2>Level 2 · Grand Final</h2>
-  <div id="finalStatus" class="notice">Complete all 15 league matches to unlock the Grand Final.</div>
-  <div id="finalMatch"></div>
- </div>
+<div class="panel">
+<h2>Level 2 · Grand Final</h2>
+<div id="finalStatus" class="notice">Complete all 15 league matches to unlock the Grand Final.</div>
+<div id="finalMatch"></div>
+</div>
 </section>
 
 <section id="history" class="view hidden">
- <div class="panel">
-  <h2>Previous tournaments</h2>
-  <div id="historyList"><p class="muted">No completed tournaments archived yet.</p></div>
- </div>
+<div class="panel">
+<h2>Previous tournaments</h2>
+<div id="historyList"><p class="muted">No completed tournaments archived yet.</p></div>
+</div>
 </section>
 
 <section id="organizer" class="view hidden">
- <div class="panel organizer">
-  <h2>Organizer access</h2>
-  <p class="small">Only the authorized Firebase account can edit. Public visitors can view the board.</p>
+<div class="panel organizer">
+<h2>Organizer access</h2>
+<p class="small">Only the authorized Firebase account can edit. Public visitors can view the board.</p>
 
-  <div id="loginBox">
-   <div class="formrow">
-    <input id="email" type="email" placeholder="Organizer email" autocomplete="username">
-    <input id="password" type="password" placeholder="Password" autocomplete="current-password">
-   </div>
-   <button type="button" class="primary" id="loginBtn">Organizer sign in</button>
-   <p class="small" id="loginMsg">Use your organizer account created in Firebase Authentication.</p>
-  </div>
+<div id="loginBox">
+<div class="formrow">
+<input id="email" type="email" placeholder="Organizer email" autocomplete="username">
+<input id="password" type="password" placeholder="Password" autocomplete="current-password">
+</div>
+<button type="button" class="primary" id="loginBtn">Organizer sign in</button>
+<p class="small" id="loginMsg">Use your organizer account created in Firebase Authentication.</p>
+</div>
 
-  <div id="adminBox" class="hidden">
-   <div class="sectiontitle">
-    <p class="success notice">Organizer mode enabled</p>
-    <button id="logoutBtn">Sign out</button>
-   </div>
+<div id="adminBox" class="hidden">
+<div class="sectiontitle">
+<p class="success notice">Organizer mode enabled</p>
+<button id="logoutBtn">Sign out</button>
+</div>
 
-   <div class="panel">
-    <h2>Team names</h2>
-    <p class="small">Edit names before the first match starts.</p>
-    <div id="teamInputs"></div>
-    <button class="primary" id="saveTeams">Save team names</button>
-   </div>
+<div class="panel">
+<h2>Team names</h2>
+<p class="small">Edit names before the first match starts.</p>
+<div id="teamInputs"></div>
+<button class="primary" id="saveTeams">Save team names</button>
+</div>
 
-   <div class="panel">
-    <h2>Manage league matches</h2>
-    <p class="small">A team cannot be in two matches marked Playing.</p>
-    <div id="saveMessage" class="small"></div>
-    <div id="adminMatches"></div>
-   </div>
+<div class="panel">
+<h2>Manage league matches</h2>
+<p class="small">A team cannot be in two matches marked Playing.</p>
+<div id="saveMessage" class="small"></div>
+<div id="adminMatches"></div>
+</div>
 
-   <div class="panel">
-    <h2>Grand Final</h2>
-    <div id="finalAdmin"></div>
-   </div>
+<div class="panel">
+<h2>Grand Final</h2>
+<div id="finalAdmin"></div>
+</div>
 
-   <div class="panel">
-    <h2>Winner photo station</h2>
-    <p class="small">Photo uploads require Firebase Storage to be enabled and secured.</p>
-    <div class="formrow">
-     <label>Winner photo <input type="file" id="winnerPhoto" accept="image/*"></label>
-     <label>Runner-up photo <input type="file" id="runnerPhoto" accept="image/*"></label>
-    </div>
-    <button type="button" id="uploadPhotos" class="primary">Upload photos</button>
-    <div id="photoStatus" class="small"></div>
-   </div>
+<div class="panel">
+<h2>Winner photo station</h2>
+<p class="small">Photo uploads require Firebase Storage to be enabled and secured.</p>
+<div class="formrow">
+<label>Winner photo <input type="file" id="winnerPhoto" accept="image/*"></label>
+<label>Runner-up photo <input type="file" id="runnerPhoto" accept="image/*"></label>
+</div>
+<button type="button" id="uploadPhotos" class="primary">Upload photos</button>
+<div id="photoStatus" class="small"></div>
+</div>
 
-   <div class="panel">
-    <h2>Tournament controls</h2>
-    <button id="endTournament" class="primary">End & archive tournament</button>
-    <button id="resetBtn" class="danger">Reset current tournament</button>
-    <p class="small">Ending archives the current results and starts a fresh tournament. Reset clears current results without archiving.</p>
-   </div>
-  </div>
- </div>
+<div class="panel">
+<h2>Tournament controls</h2>
+<button id="endTournament" class="primary">End & archive tournament</button>
+<button id="resetBtn" class="danger">Reset current tournament</button>
+<p class="small">Ending archives the current results and starts a fresh tournament. Reset clears current results without archiving.</p>
+</div>
+</div>
+</div>
 </section>
 
 <div class="foot">PSS · PICKLEBALL SMASH OUT SERIES · LIVE SCOREBOARD</div>
@@ -259,14 +221,14 @@ th{color:var(--muted);font-size:10px;letter-spacing:.8px;text-transform:uppercas
 <script>
 "use strict";
 
-const firebaseConfig = {
- apiKey:"AIzaSyBY69YEsGGwNky-ZiSvFCY_FMI60a_Cqdk",
- authDomain:"pss-pickleball-smashout-series.firebaseapp.com",
- projectId:"pss-pickleball-smashout-series",
- storageBucket:"pss-pickleball-smashout-series.firebasestorage.app",
- messagingSenderId:"356365138348",
- appId:"1:356365138348:web:728b3021f45237a54b6209",
- measurementId:"G-QB8N3V3FW0"
+const firebaseConfig={
+apiKey:"AIzaSyBY69YEsGGwNky-ZiSvFCY_FMI60a_Cqdk",
+authDomain:"pss-pickleball-smashout-series.firebaseapp.com",
+projectId:"pss-pickleball-smashout-series",
+storageBucket:"pss-pickleball-smashout-series.firebasestorage.app",
+messagingSenderId:"356365138348",
+appId:"1:356365138348:web:728b3021f45237a54b6209",
+measurementId:"G-QB8N3V3FW0"
 };
 
 const ORGANIZER_UID="beMJHnyDsxZABt54R6rkl5nKU3E3";
@@ -275,781 +237,839 @@ const $=id=>document.getElementById(id);
 
 let db,auth,storage,user=null;
 let state={
- teams:[...DEFAULT_TEAMS],
- league:[],
- final:null,
- history:[],
- photos:{winner:"",runner:""}
+teams:[...DEFAULT_TEAMS],
+league:[],
+final:null,
+history:[],
+photos:{winner:"",runner:""}
 };
-
 let saveInProgress=false;
 
 const makeFixtures=(teams=DEFAULT_TEAMS)=>{
- let a=[...teams],out=[];
- for(let r=0;r<5;r++){
-  for(let i=0;i<3;i++){
-   out.push({
-    id:"L"+(out.length+1),
-    type:"league",
-    a:a[i],
-    b:a[5-i],
-    status:"upcoming",
-    scoreA:null,
-    scoreB:null
-   });
-  }
-  a=[a[0],a[5],a[1],a[2],a[3],a[4]];
- }
- return out;
+let a=[...teams],out=[];
+for(let r=0;r<5;r++){
+for(let i=0;i<3;i++){
+out.push({
+id:"L"+(out.length+1),
+type:"league",
+a:a[i],
+b:a[5-i],
+status:"upcoming",
+scoreA:null,
+scoreB:null
+});
+}
+a=[a[0],a[5],a[1],a[2],a[3],a[4]];
+}
+return out;
 };
 
 function fresh(){
- return {
-  teams:[...DEFAULT_TEAMS],
-  league:makeFixtures(),
-  final:null,
-  history:[],
-  photos:{winner:"",runner:""}
- };
+return{
+teams:[...DEFAULT_TEAMS],
+league:makeFixtures(),
+final:null,
+history:[],
+photos:{winner:"",runner:""}
+};
 }
 
 function esc(s){
- return String(s??"").replace(/[&<>"']/g,c=>({
-  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
- }[c]));
+return String(s??"").replace(/[&<>"']/g,c=>({
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#39;"
+}[c]));
 }
 
 function isAdmin(){
- return !!user&&user.uid===ORGANIZER_UID;
+return !!user&&user.uid===ORGANIZER_UID;
 }
 
 function activeTeams(except){
- return (state.league||[])
-  .filter(m=>m.status==="playing"&&m.id!==except)
-  .flatMap(m=>[m.a,m.b]);
+return(state.league||[])
+.filter(m=>m.status==="playing"&&m.id!==except)
+.flatMap(m=>[m.a,m.b]);
 }
 
-/* NEW STANDINGS SYSTEM:
-   1. Wins
-   2. Point difference
-   3. Total points scored
-   4. Head-to-head (last tie-breaker)
-
-   For 3+ teams tied on the first 3 criteria,
-   compare wins only among those tied teams.
-*/
 function standings(){
+const rows=(state.teams||[]).map((name,i)=>({
+name,p:0,w:0,l:0,pts:0,pf:0,pa:0,diff:0,originalOrder:i
+}));
 
- const rows=(state.teams||[]).map(name=>({
-  name,
-  p:0,
-  w:0,
-  l:0,
-  pts:0,
-  pf:0,
-  pa:0,
-  diff:0,
-  originalOrder:(state.teams||[]).indexOf(name)
- }));
+const map=Object.fromEntries(rows.map(r=>[r.name,r]));
 
- const map=Object.fromEntries(rows.map(r=>[r.name,r]));
+const completed=(state.league||[]).filter(m=>
+m.status==="completed"&&
+Number.isFinite(+m.scoreA)&&
+Number.isFinite(+m.scoreB)
+);
 
- const completed=(state.league||[]).filter(m=>
-  m.status==="completed"&&
-  Number.isFinite(+m.scoreA)&&
-  Number.isFinite(+m.scoreB)
- );
+completed.forEach(m=>{
+const a=map[m.a],b=map[m.b];
+if(!a||!b)return;
 
- completed.forEach(m=>{
-  const a=map[m.a],b=map[m.b];
-  if(!a||!b)return;
+a.p++;b.p++;
+a.pf+=Number(m.scoreA);
+a.pa+=Number(m.scoreB);
+b.pf+=Number(m.scoreB);
+b.pa+=Number(m.scoreA);
 
-  a.p++;
-  b.p++;
+if(+m.scoreA>+m.scoreB){
+a.w++;b.l++;a.pts+=2;b.pts-=2;
+}else{
+b.w++;a.l++;b.pts+=2;a.pts-=2;
+}
+});
 
-  a.pf+=Number(m.scoreA);
-  a.pa+=Number(m.scoreB);
+rows.forEach(r=>r.diff=r.pf-r.pa);
 
-  b.pf+=Number(m.scoreB);
-  b.pa+=Number(m.scoreA);
+rows.sort((a,b)=>
+b.w-a.w||
+b.diff-a.diff||
+b.pf-a.pf
+);
 
-  if(+m.scoreA>+m.scoreB){
-   a.w++;
-   b.l++;
-   a.pts+=2;
-   b.pts-=2;
-  }else{
-   b.w++;
-   a.l++;
-   b.pts+=2;
-   a.pts-=2;
-  }
- });
+let start=0;
 
- rows.forEach(r=>{
-  r.diff=r.pf-r.pa;
- });
+while(start<rows.length){
+let end=start+1;
+const first=rows[start];
 
- // First three ranking criteria
- rows.sort((a,b)=>
-  b.w-a.w||
-  b.diff-a.diff||
-  b.pf-a.pf
- );
+while(end<rows.length&&
+rows[end].w===first.w&&
+rows[end].diff===first.diff&&
+rows[end].pf===first.pf){
+end++;
+}
 
- // Group teams tied on the first three criteria.
- // Head-to-head is used only inside each tied group.
- let start=0;
+const group=rows.slice(start,end);
 
- while(start<rows.length){
+if(group.length>1){
+const names=new Set(group.map(r=>r.name));
+const h2h={};
+group.forEach(r=>h2h[r.name]=0);
 
-  let end=start+1;
-  const first=rows[start];
+completed.forEach(m=>{
+if(!names.has(m.a)||!names.has(m.b))return;
+if(+m.scoreA>+m.scoreB)h2h[m.a]++;
+else if(+m.scoreB>+m.scoreA)h2h[m.b]++;
+});
 
-  while(end<rows.length&&
-   rows[end].w===first.w&&
-   rows[end].diff===first.diff&&
-   rows[end].pf===first.pf){
-   end++;
-  }
+group.sort((a,b)=>
+h2h[b.name]-h2h[a.name]||
+a.originalOrder-b.originalOrder
+);
 
-  const group=rows.slice(start,end);
+rows.splice(start,group.length,...group);
+}
 
-  if(group.length>1){
+start=end;
+}
 
-   const groupNames=new Set(group.map(r=>r.name));
-   const h2h={};
-
-   group.forEach(r=>h2h[r.name]=0);
-
-   // Count head-to-head wins only against teams in this tied group.
-   completed.forEach(m=>{
-    if(!groupNames.has(m.a)||!groupNames.has(m.b))return;
-
-    if(+m.scoreA>+m.scoreB){
-     h2h[m.a]++;
-    }else if(+m.scoreB>+m.scoreA){
-     h2h[m.b]++;
-    }
-   });
-
-   group.sort((a,b)=>
-    h2h[b.name]-h2h[a.name]||
-    a.originalOrder-b.originalOrder
-   );
-
-   rows.splice(start,group.length,...group);
-  }
-
-  start=end;
- }
-
- return rows;
+return rows;
 }
 
 function statusTag(s){
- return `<span class="tag ${s==="playing"?"playing":s==="completed"?"completed":""}">${esc(String(s||"upcoming").toUpperCase())}</span>`;
+return `<span class="tag ${s==="playing"?"playing":s==="completed"?"completed":""}">${esc(String(s||"upcoming").toUpperCase())}</span>`;
 }
 
 function matchCard(m){
- return `<div class="match">
-  <div class="matchhead">
-   <span class="small">${esc(m.id)} · ${m.type==="final"?"GRAND FINAL":"LEAGUE"}</span>
-   ${statusTag(m.status)}
-  </div>
-  <div class="matchhead">
-   <div class="teams">${esc(m.a)}<br>${esc(m.b)}</div>
-   ${m.status==="completed"?`<span class="score">${esc(m.scoreA)} – ${esc(m.scoreB)}</span>`:""}
-  </div>
-  ${m.status==="playing"?'<div class="small">Match currently in progress</div>':""}
- </div>`;
+return `<div class="match">
+<div class="matchhead">
+<span class="small">${esc(m.id)} · ${m.type==="final"?"GRAND FINAL":"LEAGUE"}</span>
+${statusTag(m.status)}
+</div>
+<div class="matchhead">
+<div class="teams">${esc(m.a)}<br>${esc(m.b)}</div>
+${m.status==="completed"?`<span class="score">${esc(m.scoreA)} – ${esc(m.scoreB)}</span>`:""}
+</div>
+${m.status==="playing"?'<div class="small">Match currently in progress</div>':""}
+</div>`;
 }
 
 function render(){
- const league=state.league||[];
- const done=league.filter(m=>m.status==="completed").length;
- const live=league.filter(m=>m.status==="playing").length;
+const league=state.league||[];
+const done=league.filter(m=>m.status==="completed").length;
+const live=league.filter(m=>m.status==="playing").length;
 
- $("totalMatches").textContent=league.length;
- $("doneMatches").textContent=done;
- $("liveMatches").textContent=live;
- $("teamsCount").textContent=(state.teams||[]).length;
+$("totalMatches").textContent=league.length;
+$("doneMatches").textContent=done;
+$("liveMatches").textContent=live;
+$("teamsCount").textContent=(state.teams||[]).length;
 
- $("liveList").innerHTML=live?
-  league.filter(m=>m.status==="playing").map(matchCard).join(""):
-  '<p class="muted">No matches started yet.</p>';
+$("liveList").innerHTML=live?
+league.filter(m=>m.status==="playing").map(matchCard).join(""):
+'<p class="muted">No matches started yet.</p>';
 
- const busy=activeTeams();
- const available=league.filter(m=>
-  m.status==="upcoming"&&!busy.includes(m.a)&&!busy.includes(m.b)
- );
+const busy=activeTeams();
+const available=league.filter(m=>
+m.status==="upcoming"&&!busy.includes(m.a)&&!busy.includes(m.b)
+);
 
- $("nextList").innerHTML=available.slice(0,6).map(matchCard).join("")||
-  '<p class="muted">No currently available fixture.</p>';
+$("nextList").innerHTML=available.slice(0,6).map(matchCard).join("")||
+'<p class="muted">No currently available fixture.</p>';
 
- $("fixturesList").innerHTML=league.map(matchCard).join("")||
-  '<p class="muted">No fixtures loaded.</p>';
+$("fixturesList").innerHTML=league.map(matchCard).join("")||
+'<p class="muted">No fixtures loaded.</p>';
 
- $("standingsBody").innerHTML=standings().map((r,i)=>`
-  <tr>
-   <td class="rank">${i+1}</td>
-   <td>${esc(r.name)}</td>
-   <td>${r.p}</td>
-   <td>${r.w}</td>
-   <td>${r.l}</td>
-   <td>${r.pts}</td>
-   <td>${r.diff>0?"+":""}${r.diff}</td>
-   <td>${r.pf}</td>
-  </tr>
- `).join("");
+$("standingsBody").innerHTML=standings().map((r,i)=>`
+<tr>
+<td class="rank">${i+1}</td>
+<td>${esc(r.name)}</td>
+<td>${r.p}</td>
+<td>${r.w}</td>
+<td>${r.l}</td>
+<td>${r.pts}</td>
+<td>${r.diff>0?"+":""}${r.diff}</td>
+<td>${r.pf}</td>
+</tr>
+`).join("");
 
- renderFinal();
- renderHistory();
-
- if(isAdmin())renderAdmin();
+renderFinal();
+renderHistory();
+if(isAdmin())renderAdmin();
 }
 
 function renderFinal(){
- const allDone=state.league.length===15&&state.league.every(m=>m.status==="completed");
- const rows=standings(),top=rows.slice(0,2);
+const allDone=state.league.length===15&&state.league.every(m=>m.status==="completed");
+const rows=standings(),top=rows.slice(0,2);
 
- $("finalStatus").textContent=!allDone?
-  "Complete all 15 league matches to unlock the Grand Final.":
-  `Qualified: ${top[0].name} and ${top[1].name}.`;
+$("finalStatus").textContent=!allDone?
+"Complete all 15 league matches to unlock the Grand Final.":
+`Qualified: ${top[0].name} and ${top[1].name}.`;
 
- if(!allDone){
-  $("finalMatch").innerHTML="";
-  return;
- }
+if(!allDone){
+$("finalMatch").innerHTML="";
+return;
+}
 
- if(!state.final){
-  $("finalMatch").innerHTML=
-   `<div class="notice success">Grand Final ready: <b>${esc(top[0].name)} vs ${esc(top[1].name)}</b>. Organizer can create it below.</div>`;
-  return;
- }
+if(!state.final){
+$("finalMatch").innerHTML=
+`<div class="notice success">Grand Final ready: <b>${esc(top[0].name)} vs ${esc(top[1].name)}</b>. Organizer can create it below.</div>`;
+return;
+}
 
- const f=state.final;
- $("finalMatch").innerHTML=matchCard(f)+(f.status==="completed"?`
-  <div class="champion">
-   <div class="cup">🏆</div>
-   <div class="small">PSS CHAMPION</div>
-   <h2>${esc(+f.scoreA>+f.scoreB?f.a:f.b)}</h2>
-   <p class="muted">Runner-up: ${esc(+f.scoreA>+f.scoreB?f.b:f.a)}</p>
-  </div>`:"");
+const f=state.final;
+
+$("finalMatch").innerHTML=matchCard(f)+(f.status==="completed"?`
+<div class="champion">
+<div class="cup">🏆</div>
+<div class="small">PSS CHAMPION</div>
+<h2>${esc(+f.scoreA>+f.scoreB?f.a:f.b)}</h2>
+<p class="muted">Runner-up: ${esc(+f.scoreA>+f.scoreB?f.b:f.a)}</p>
+</div>`:"");
 }
 
 function renderHistory(){
- const h=state.history||[];
- $("historyList").innerHTML=h.length?
-  h.slice().reverse().map(t=>`
-   <div class="match">
-    <b>${esc(t.name||"PSS Tournament")}</b>
-    <div class="small">${esc(t.endedAt||"")}</div>
-    <p>Champion: <b>${esc(t.champion||"Not decided")}</b> · Runner-up: <b>${esc(t.runnerUp||"Not decided")}</b></p>
-    <p class="small">${(t.league||[]).filter(m=>m.status==="completed").length} league matches completed</p>
-    ${t.photos?.winner?`<img class="photo" src="${esc(t.photos.winner)}" alt="Winner">`:""}
-    ${t.photos?.runner?`<img class="photo" src="${esc(t.photos.runner)}" alt="Runner-up">`:""}
-   </div>
-  `).join(""):'<p class="muted">No completed tournaments archived yet.</p>';
+const h=state.history||[];
+
+$("historyList").innerHTML=h.length?
+h.slice().reverse().map(t=>`
+<div class="match">
+<b>${esc(t.name||"PSS Tournament")}</b>
+<div class="small">${esc(t.endedAt||"")}</div>
+<p>Champion: <b>${esc(t.champion||"Not decided")}</b> · Runner-up: <b>${esc(t.runnerUp||"Not decided")}</b></p>
+<p class="small">${(t.league||[]).filter(m=>m.status==="completed").length} league matches completed</p>
+${t.photos?.winner?`<img class="photo" src="${esc(t.photos.winner)}" alt="Winner">`:""}
+${t.photos?.runner?`<img class="photo" src="${esc(t.photos.runner)}" alt="Runner-up">`:""}
+</div>
+`).join(""):'<p class="muted">No completed tournaments archived yet.</p>';
+}
+
+/* FIRESTORE SAFETY FIX */
+function firestoreSafeState(){
+const payload=JSON.parse(JSON.stringify(state,(key,value)=>
+value===undefined?null:value
+));
+
+if(payload.final){
+const allowed=["upcoming","playing","completed"];
+
+if(!allowed.includes(payload.final.status)){
+payload.final.status="upcoming";
+}
+
+if(payload.final.scoreA===undefined)payload.final.scoreA=null;
+if(payload.final.scoreB===undefined)payload.final.scoreB=null;
+
+payload.final.type=payload.final.type||"final";
+payload.final.id=payload.final.id||"FINAL";
+}
+
+return payload;
 }
 
 async function save(){
- if(!db)throw Error("Firebase is not connected.");
- if(!isAdmin())throw Error("Organizer access required.");
+if(!db)throw Error("Firebase is not connected.");
+if(!isAdmin())throw Error("Organizer access required.");
 
- await db.collection("tournaments").doc("main").set(state);
+const safeData=firestoreSafeState();
+
+await db.collection("tournaments").doc("main").set(safeData);
 }
 
 function renderAdmin(){
- $("teamInputs").innerHTML=(state.teams||[]).map((t,i)=>`
-  <div class="formrow">
-   <input data-team="${i}" value="${esc(t)}" aria-label="Team ${i+1}">
-  </div>
- `).join("");
+$("teamInputs").innerHTML=(state.teams||[]).map((t,i)=>`
+<div class="formrow">
+<input data-team="${i}" value="${esc(t)}" aria-label="Team ${i+1}">
+</div>
+`).join("");
 
- $("adminMatches").innerHTML=(state.league||[]).map(m=>{
-  const busy=activeTeams(m.id);
-  const blocked=m.status!=="playing"&&(busy.includes(m.a)||busy.includes(m.b));
+$("adminMatches").innerHTML=(state.league||[]).map(m=>{
+const busy=activeTeams(m.id);
+const blocked=m.status!=="playing"&&(busy.includes(m.a)||busy.includes(m.b));
 
-  return `<div class="match" data-match-row="${esc(m.id)}">
-   <div class="matchhead">
-    <b>${esc(m.id)}: ${esc(m.a)} vs ${esc(m.b)}</b>
-    ${statusTag(m.status)}
-   </div>
-   <div class="formrow">
-    <select data-status="${esc(m.id)}">
-     <option value="upcoming" ${m.status==="upcoming"?"selected":""}>Upcoming</option>
-     <option value="playing" ${m.status==="playing"?"selected":""} ${blocked?"disabled":""}>Playing</option>
-     <option value="completed" ${m.status==="completed"?"selected":""}>Completed</option>
-    </select>
-    <input type="number" min="0" max="99" placeholder="Score ${esc(m.a)}" data-scorea="${esc(m.id)}" value="${m.scoreA??""}">
-    <input type="number" min="0" max="99" placeholder="Score ${esc(m.b)}" data-scoreb="${esc(m.id)}" value="${m.scoreB??""}">
-    <button type="button" class="primary" data-save="${esc(m.id)}">Save</button>
-   </div>
-   ${blocked?'<div class="small">Unavailable: one of these teams is already playing another match.</div>':""}
-  </div>`;
- }).join("");
+return `<div class="match" data-match-row="${esc(m.id)}">
+<div class="matchhead">
+<b>${esc(m.id)}: ${esc(m.a)} vs ${esc(m.b)}</b>
+${statusTag(m.status)}
+</div>
+<div class="formrow">
+<select data-status="${esc(m.id)}">
+<option value="upcoming" ${m.status==="upcoming"?"selected":""}>Upcoming</option>
+<option value="playing" ${m.status==="playing"?"selected":""} ${blocked?"disabled":""}>Playing</option>
+<option value="completed" ${m.status==="completed"?"selected":""}>Completed</option>
+</select>
+<input type="number" min="0" max="99" placeholder="Score ${esc(m.a)}" data-scorea="${esc(m.id)}" value="${m.scoreA??""}">
+<input type="number" min="0" max="99" placeholder="Score ${esc(m.b)}" data-scoreb="${esc(m.id)}" value="${m.scoreB??""}">
+<button type="button" class="primary" data-save="${esc(m.id)}">Save</button>
+</div>
+${blocked?'<div class="small">Unavailable: one of these teams is already playing another match.</div>':""}
+</div>`;
+}).join("");
 
- const allDone=state.league.length===15&&state.league.every(m=>m.status==="completed");
+const allDone=state.league.length===15&&state.league.every(m=>m.status==="completed");
 
- $("finalAdmin").innerHTML=!allDone?
-  '<p class="small">Complete all 15 league matches to create the Grand Final.</p>':
-  !state.final?
-  `<button type="button" class="primary" id="createFinal">Create Grand Final (${esc(standings()[0].name)} vs ${esc(standings()[1].name)})</button>`:
-  `<div class="match">
-   <b>GRAND FINAL · ${esc(state.final.a)} vs ${esc(state.final.b)}</b>
-   <div class="formrow">
-    <select id="finalStatus">
-     <option value="upcoming" ${state.final.status==="upcoming"?"selected":""}>Upcoming</option>
-     <option value="playing" ${state.final.status==="playing"?"selected":""}>Playing</option>
-     <option value="completed" ${state.final.status==="completed"?"selected":""}>Completed</option>
-    </select>
-    <input id="finalA" type="number" min="0" max="99" placeholder="Score ${esc(state.final.a)}" value="${state.final.scoreA??""}">
-    <input id="finalB" type="number" min="0" max="99" placeholder="Score ${esc(state.final.b)}" value="${state.final.scoreB??""}">
-    <button type="button" class="primary" id="saveFinal">Save final</button>
-   </div>
-  </div>`;
+if(!allDone){
+$("finalAdmin").innerHTML='<p class="small">Complete all 15 league matches to create the Grand Final.</p>';
+return;
+}
+
+if(!state.final){
+const rows=standings();
+$("finalAdmin").innerHTML=`<button type="button" class="primary" id="createFinal">Create Grand Final (${esc(rows[0].name)} vs ${esc(rows[1].name)})</button>`;
+return;
+}
+
+/* Repair old Grand Final records with missing status */
+if(!["upcoming","playing","completed"].includes(state.final.status)){
+state.final.status="upcoming";
+}
+
+$("finalAdmin").innerHTML=`
+<div class="match">
+<b>GRAND FINAL · ${esc(state.final.a)} vs ${esc(state.final.b)}</b>
+<div class="formrow">
+<select id="finalStatus">
+<option value="upcoming" ${state.final.status==="upcoming"?"selected":""}>Upcoming</option>
+<option value="playing" ${state.final.status==="playing"?"selected":""}>Playing</option>
+<option value="completed" ${state.final.status==="completed"?"selected":""}>Completed</option>
+</select>
+<input id="finalA" type="number" min="0" max="99" placeholder="Score ${esc(state.final.a)}" value="${state.final.scoreA??""}">
+<input id="finalB" type="number" min="0" max="99" placeholder="Score ${esc(state.final.b)}" value="${state.final.scoreB??""}">
+<button type="button" class="primary" id="saveFinal">Save final</button>
+</div>
+</div>`;
 }
 
 /* NAVIGATION */
 function showTab(id){
- const valid=["overview","fixtures","standings","finals","history","organizer"];
- if(!valid.includes(id))return;
+const valid=["overview","fixtures","standings","finals","history","organizer"];
+if(!valid.includes(id))return;
 
- document.querySelectorAll(".view").forEach(v=>{
-  v.classList.toggle("hidden",v.id!==id);
- });
+document.querySelectorAll(".view").forEach(v=>{
+v.classList.toggle("hidden",v.id!==id);
+});
 
- document.querySelectorAll(".tab[data-tab]").forEach(b=>{
-  b.classList.toggle("active",b.dataset.tab===id);
- });
+document.querySelectorAll(".tab[data-tab]").forEach(b=>{
+b.classList.toggle("active",b.dataset.tab===id);
+});
 }
 
 document.querySelectorAll(".tab[data-tab]").forEach(btn=>{
- btn.addEventListener("click",()=>showTab(btn.dataset.tab));
+btn.addEventListener("click",()=>showTab(btn.dataset.tab));
 });
 
 /* ORGANIZER LOGIN */
 $("loginBtn").addEventListener("click",async()=>{
- try{
-  $("loginMsg").textContent="Signing in…";
-  await auth.signInWithEmailAndPassword(
-   $("email").value.trim(),
-   $("password").value
-  );
-  $("loginMsg").textContent="Signed in.";
- }catch(e){
-  console.error(e);
-  $("loginMsg").textContent=e.message;
- }
+try{
+$("loginMsg").textContent="Signing in…";
+
+await auth.signInWithEmailAndPassword(
+$("email").value.trim(),
+$("password").value
+);
+
+$("loginMsg").textContent="Signed in.";
+}catch(e){
+console.error(e);
+$("loginMsg").textContent=e.message;
+}
 });
 
 $("logoutBtn").addEventListener("click",()=>auth.signOut());
 
 /* SAVE TEAM NAMES */
 $("saveTeams").addEventListener("click",async()=>{
- try{
-  const names=[...document.querySelectorAll("[data-team]")].map(x=>x.value.trim());
+try{
+const names=[...document.querySelectorAll("[data-team]")].map(x=>x.value.trim());
 
-  if(names.some(x=>!x)||new Set(names.map(x=>x.toLowerCase())).size!==6)
-   throw Error("Enter six different team names.");
+if(names.some(x=>!x)||new Set(names.map(x=>x.toLowerCase())).size!==6)
+throw Error("Enter six different team names.");
 
-  if(state.league.some(m=>m.status!=="upcoming"))
-   throw Error("Team names are locked after the first match starts.");
+if(state.league.some(m=>m.status!=="upcoming"))
+throw Error("Team names are locked after the first match starts.");
 
-  const old=[...state.teams];
-  state.teams=names;
+const old=[...state.teams];
+state.teams=names;
 
-  state.league.forEach(m=>{
-   m.a=names[old.indexOf(m.a)];
-   m.b=names[old.indexOf(m.b)];
-  });
+state.league.forEach(m=>{
+m.a=names[old.indexOf(m.a)];
+m.b=names[old.indexOf(m.b)];
+});
 
-  await save();
-  alert("Team names saved.");
-  render();
+await save();
+alert("Team names saved.");
+render();
 
- }catch(e){
-  console.error(e);
-  alert("Could not save team names: "+e.message);
- }
+}catch(e){
+console.error(e);
+alert("Could not save team names: "+e.message);
+}
 });
 
 /* SAVE LEAGUE MATCH */
 $("adminMatches").addEventListener("click",async function(e){
- const btn=e.target.closest("button[data-save]");
- if(!btn)return;
+const btn=e.target.closest("button[data-save]");
+if(!btn)return;
 
- if(saveInProgress)return;
+if(saveInProgress)return;
 
- const id=btn.dataset.save;
- const row=btn.closest("[data-match-row]");
- const m=state.league.find(x=>x.id===id);
+const id=btn.dataset.save;
+const row=btn.closest("[data-match-row]");
+const m=state.league.find(x=>x.id===id);
 
- if(!row||!m){
-  alert("Could not find this match.");
-  return;
- }
+if(!row||!m){
+alert("Could not find this match.");
+return;
+}
 
- const statusInput=row.querySelector("[data-status]");
- const scoreAInput=row.querySelector("[data-scorea]");
- const scoreBInput=row.querySelector("[data-scoreb]");
+const statusInput=row.querySelector("[data-status]");
+const scoreAInput=row.querySelector("[data-scorea]");
+const scoreBInput=row.querySelector("[data-scoreb]");
 
- if(!statusInput||!scoreAInput||!scoreBInput){
-  alert("Score fields could not be found. Refresh the page and try again.");
-  return;
- }
+if(!statusInput||!scoreAInput||!scoreBInput){
+alert("Score fields could not be found. Refresh the page and try again.");
+return;
+}
 
- const status=statusInput.value;
- const sa=scoreAInput.value.trim();
- const sb=scoreBInput.value.trim();
- const oldMatch={...m};
+const status=statusInput.value;
+const sa=scoreAInput.value.trim();
+const sb=scoreBInput.value.trim();
+const oldMatch={...m};
 
- try{
-  if(!isAdmin())throw Error("Authorized organizer login required.");
+try{
+if(!isAdmin())throw Error("Authorized organizer login required.");
 
-  if(status==="playing"&&activeTeams(id).some(t=>t===m.a||t===m.b)){
-   throw Error("One of these teams is already playing another match.");
-  }
+if(status==="playing"&&activeTeams(id).some(t=>t===m.a||t===m.b)){
+throw Error("One of these teams is already playing another match.");
+}
 
-  if(status==="completed"){
-   if(sa===""||sb===""||Number(sa)===Number(sb)){
-    throw Error("Enter two valid, non-tied scores.");
-   }
+if(status==="completed"){
+if(sa===""||sb===""||Number(sa)===Number(sb)){
+throw Error("Enter two valid, non-tied scores.");
+}
 
-   if(!Number.isInteger(Number(sa))||!Number.isInteger(Number(sb))){
-    throw Error("Scores must be whole numbers.");
-   }
+if(!Number.isInteger(Number(sa))||!Number.isInteger(Number(sb))){
+throw Error("Scores must be whole numbers.");
+}
 
-   if(Number(sa)<0||Number(sb)<0||Number(sa)>99||Number(sb)>99){
-    throw Error("Scores must be between 0 and 99.");
-   }
+if(Number(sa)<0||Number(sb)<0||Number(sa)>99||Number(sb)>99){
+throw Error("Scores must be between 0 and 99.");
+}
 
-   if(Math.max(Number(sa),Number(sb))<11||
-      Math.abs(Number(sa)-Number(sb))<2){
-    throw Error("Winner needs at least 11 points and a 2-point lead.");
-   }
+if(Math.max(Number(sa),Number(sb))<11||
+Math.abs(Number(sa)-Number(sb))<2){
+throw Error("Winner needs at least 11 points and a 2-point lead.");
+}
 
-   m.scoreA=Number(sa);
-   m.scoreB=Number(sb);
-  }else{
-   m.scoreA=null;
-   m.scoreB=null;
-  }
+m.scoreA=Number(sa);
+m.scoreB=Number(sb);
+}else{
+m.scoreA=null;
+m.scoreB=null;
+}
 
-  m.status=status;
+m.status=status;
 
-  saveInProgress=true;
-  btn.disabled=true;
-  btn.textContent="Saving...";
-  $("saveMessage").textContent="Saving "+id+" to Firebase…";
+saveInProgress=true;
+btn.disabled=true;
+btn.textContent="Saving...";
+$("saveMessage").textContent="Saving "+id+" to Firebase…";
 
-  await save();
+await save();
 
-  $("saveMessage").textContent="✓ "+id+" saved successfully!";
-  $("connection").textContent="Connected · Score saved successfully";
+$("saveMessage").textContent="✓ "+id+" saved successfully!";
+$("connection").textContent="Connected · Score saved successfully";
 
-  render();
+render();
 
- }catch(err){
-  Object.assign(m,oldMatch);
-  console.error("PSS score saving error:",err);
-  $("saveMessage").textContent="Save failed: "+err.message;
-  alert("Score could not be saved:\n"+err.message);
-  render();
+}catch(err){
+Object.assign(m,oldMatch);
+console.error("PSS score saving error:",err);
+$("saveMessage").textContent="Save failed: "+err.message;
+alert("Score could not be saved:\n"+err.message);
+render();
 
- }finally{
-  saveInProgress=false;
- }
+}finally{
+saveInProgress=false;
+}
 });
 
-/* GRAND FINAL */
+/* GRAND FINAL - FIXED */
+$("finalAdmin").addEventListener("click",async function(e){
 
-/* GRAND FINAL - FIXED SCORE SAVING */
-$("finalAdmin").addEventListener("click", async function(e) {
- const createBtn = e.target.closest("#createFinal");
- const saveBtn = e.target.closest("#saveFinal");
+const createBtn=e.target.closest("#createFinal");
+const saveBtn=e.target.closest("#saveFinal");
 
- try {
-  if (!isAdmin()) {
-   throw Error("Authorized organizer login required.");
-  }
+if(!createBtn&&!saveBtn)return;
 
-  // CREATE GRAND FINAL
-  if (createBtn) {
-   const allDone =
-    state.league.length === 15 &&
-    state.league.every(m => m.status === "completed");
+try{
 
-   if (!allDone) {
-    throw Error("Complete all 15 league matches first.");
-   }
+if(!isAdmin()){
+throw Error("Authorized organizer login required.");
+}
 
-   if (state.final) {
-    throw Error("Grand Final already exists.");
-   }
+/* CREATE GRAND FINAL */
+if(createBtn){
 
-   const rows = standings();
+const allDone=
+state.league.length===15&&
+state.league.every(m=>m.status==="completed");
 
-   if (rows.length < 2) {
-    throw Error("Not enough teams to create the final.");
-   }
+if(!allDone){
+throw Error("Complete all 15 league matches first.");
+}
 
-   state.final = {
-    id: "FINAL",
-    type: "final",
-    a: rows[0].name,
-    b: rows[1].name,
-    status: "upcoming",
-    scoreA: null,
-    scoreB: null
-   };
+if(state.final){
+throw Error("Grand Final already exists.");
+}
 
-   await save();
-   render();
+const rows=standings();
 
-   alert("Grand Final created successfully!");
-   return;
-  }
+if(rows.length<2){
+throw Error("Not enough teams to create the final.");
+}
 
-  // SAVE GRAND FINAL SCORE
-  if (saveBtn) {
-   if (!state.final) {
-    throw Error("Create the Grand Final first.");
-   }
+state.final={
+id:"FINAL",
+type:"final",
+a:rows[0].name,
+b:rows[1].name,
+status:"upcoming",
+scoreA:null,
+scoreB:null
+};
 
-   const sa = $("finalA").value.trim();
-   const sb = $("finalB").value.trim();
-   const st = $("finalStatus").value;
+await save();
+render();
 
-   let scoreA = null;
-   let scoreB = null;
+alert("Grand Final created successfully!");
+return;
+}
 
-   if (st === "completed") {
-    if (sa === "" || sb === "") {
-     throw Error("Enter both Grand Final scores.");
-    }
+/* SAVE GRAND FINAL SCORE */
+if(saveBtn){
 
-    scoreA = Number(sa);
-    scoreB = Number(sb);
+if(!state.final){
+throw Error("Create the Grand Final first.");
+}
 
-    if (!Number.isInteger(scoreA) || !Number.isInteger(scoreB)) {
-     throw Error("Scores must be whole numbers.");
-    }
+const statusEl=$("finalStatus");
+const aEl=$("finalA");
+const bEl=$("finalB");
 
-    if (
-     scoreA < 0 || scoreB < 0 ||
-     scoreA > 99 || scoreB > 99
-    ) {
-     throw Error("Scores must be between 0 and 99.");
-    }
+const st=statusEl?.value||"upcoming";
 
-    if (scoreA === scoreB) {
-     throw Error("A Grand Final cannot end in a tie.");
-    }
+if(!["upcoming","playing","completed"].includes(st)){
+throw Error("Choose a valid Grand Final status.");
+}
 
-    if (
-     Math.max(scoreA, scoreB) < 11 ||
-     Math.abs(scoreA - scoreB) < 2
-    ) {
-     throw Error("Winner needs at least 11 points and a 2-point lead.");
-    }
-   }
+const sa=aEl?.value.trim()??"";
+const sb=bEl?.value.trim()??"";
 
-   const oldFinal = { ...state.final };
+let scoreA=null;
+let scoreB=null;
 
-   saveBtn.disabled = true;
-   saveBtn.textContent = "Saving...";
+if(st==="completed"){
 
-   try {
-    state.final.status = st;
-    state.final.scoreA = scoreA;
-    state.final.scoreB = scoreB;
+if(sa===""||sb===""){
+throw Error("Enter both Grand Final scores.");
+}
 
-    await save();
+scoreA=Number(sa);
+scoreB=Number(sb);
 
-    $("connection").textContent =
-     "Connected · Grand Final saved successfully";
+if(!Number.isInteger(scoreA)||!Number.isInteger(scoreB)){
+throw Error("Scores must be whole numbers.");
+}
 
-    alert("Grand Final score saved successfully!");
-    render();
+if(scoreA<0||scoreB<0||scoreA>99||scoreB>99){
+throw Error("Scores must be between 0 and 99.");
+}
 
-   } catch (saveError) {
-    state.final = oldFinal;
-    throw saveError;
-   }
+if(scoreA===scoreB){
+throw Error("A Grand Final cannot end in a tie.");
+}
 
-   return;
-  }
+if(Math.max(scoreA,scoreB)<11||Math.abs(scoreA-scoreB)<2){
+throw Error("Winner needs at least 11 points and a 2-point lead.");
+}
+}
 
- } catch (err) {
-  console.error("Grand Final saving error:", err);
-  alert("Grand Final could not be saved:\n" + err.message);
+const oldFinal={...state.final};
 
-  if (isAdmin()) renderAdmin();
- }
+saveBtn.disabled=true;
+saveBtn.textContent="Saving...";
+
+try{
+
+/* IMPORTANT: Always give final.status a valid value */
+state.final={
+...state.final,
+status:st,
+scoreA:scoreA,
+scoreB:scoreB,
+type:"final",
+id:state.final.id||"FINAL"
+};
+
+await save();
+
+$("connection").textContent="Connected · Grand Final saved successfully";
+
+render();
+
+alert("Grand Final saved successfully!");
+
+}catch(saveError){
+
+state.final=oldFinal;
+throw saveError;
+
+}
+}
+
+}catch(err){
+
+console.error("Grand Final saving error:",err);
+
+alert("Grand Final could not be saved:\n"+err.message);
+
+if(isAdmin())renderAdmin();
+
+}
 });
-
 
 /* RESET CURRENT TOURNAMENT */
 $("resetBtn").addEventListener("click",async()=>{
- if(!confirm("Reset current scores and statuses? This does not archive the tournament."))return;
+if(!confirm("Reset current scores and statuses? This does not archive the tournament."))return;
 
- try{
-  const history=state.history||[];
-  state=fresh();
-  state.history=history;
+try{
+const history=state.history||[];
+state=fresh();
+state.history=history;
 
-  await save();
-  alert("Current tournament reset.");
-  render();
+await save();
 
- }catch(e){
-  console.error(e);
-  alert("Reset failed: "+e.message);
- }
+alert("Current tournament reset.");
+render();
+
+}catch(e){
+console.error(e);
+alert("Reset failed: "+e.message);
+}
 });
 
 /* END AND ARCHIVE TOURNAMENT */
 $("endTournament").addEventListener("click",async()=>{
- if(!confirm("End and archive this tournament, then start a fresh one?"))return;
+if(!confirm("End and archive this tournament, then start a fresh one?"))return;
 
- try{
-  const rows=standings();
+try{
+const rows=standings();
 
-  const champ=state.final?.status==="completed"?
-   (+state.final.scoreA>+state.final.scoreB?state.final.a:state.final.b):
-   "Not decided";
+const champ=state.final?.status==="completed"?
+(+state.final.scoreA>+state.final.scoreB?state.final.a:state.final.b):
+"Not decided";
 
-  const runner=state.final?.status==="completed"?
-   (champ===state.final.a?state.final.b:state.final.a):
-   "Not decided";
+const runner=state.final?.status==="completed"?
+(champ===state.final.a?state.final.b:state.final.a):
+"Not decided";
 
-  const archive={
-   name:"PSS Tournament "+new Date().toLocaleDateString(),
-   endedAt:new Date().toLocaleString(),
-   champion:champ,
-   runnerUp:runner,
-   teams:[...state.teams],
-   league:JSON.parse(JSON.stringify(state.league)),
-   final:state.final?JSON.parse(JSON.stringify(state.final)):null,
-   photos:{...(state.photos||{})},
-   standings:rows
-  };
+const archive={
+name:"PSS Tournament "+new Date().toLocaleDateString(),
+endedAt:new Date().toLocaleString(),
+champion:champ,
+runnerUp:runner,
+teams:[...state.teams],
+league:JSON.parse(JSON.stringify(state.league)),
+final:state.final?JSON.parse(JSON.stringify(state.final)):null,
+photos:{...(state.photos||{})},
+standings:rows
+};
 
-  state.history=[...(state.history||[]),archive];
-  const keep=state.history;
+state.history=[...(state.history||[]),archive];
 
-  state=fresh();
-  state.history=keep;
+const keep=state.history;
 
-  await save();
-  showTab("history");
-  alert("Tournament archived. A fresh tournament is ready.");
+state=fresh();
+state.history=keep;
 
- }catch(e){
-  console.error(e);
-  alert("Could not archive: "+e.message);
- }
+await save();
+
+showTab("history");
+
+alert("Tournament archived. A fresh tournament is ready.");
+
+}catch(e){
+console.error(e);
+alert("Could not archive: "+e.message);
+}
 });
 
 /* WINNER PHOTOS */
 $("uploadPhotos").addEventListener("click",async()=>{
- try{
-  if(!storage)throw Error("Firebase Storage is not initialized.");
-  if(!isAdmin())throw Error("Organizer access required.");
+try{
 
-  const files=[["winnerPhoto","winner"],["runnerPhoto","runner"]];
+if(!storage)throw Error("Firebase Storage is not initialized.");
+if(!isAdmin())throw Error("Organizer access required.");
 
-  for(const [input,key] of files){
-   const file=$(input).files[0];
-   if(!file)continue;
+const files=[["winnerPhoto","winner"],["runnerPhoto","runner"]];
 
-   if(!file.type.startsWith("image/"))
-    throw Error("Please select image files only.");
+for(const[input,key]of files){
 
-   if(file.size>5*1024*1024)
-    throw Error("Each photo must be 5 MB or smaller.");
+const file=$(input).files[0];
+if(!file)continue;
 
-   const path=`tournament-photos/${Date.now()}-${key}-${file.name.replace(/[^a-zA-Z0-9._-]/g,"_")}`;
-   const snap=await storage.ref(path).put(file);
+if(!file.type.startsWith("image/")){
+throw Error("Please select image files only.");
+}
 
-   state.photos=state.photos||{};
-   state.photos[key]=await snap.ref.getDownloadURL();
-  }
+if(file.size>5*1024*1024){
+throw Error("Each photo must be 5 MB or smaller.");
+}
 
-  await save();
-  $("photoStatus").textContent="Photo upload complete.";
-  alert("Photos uploaded successfully.");
-  render();
+const path=`tournament-photos/${Date.now()}-${key}-${file.name.replace(/[^a-zA-Z0-9._-]/g,"_")}`;
 
- }catch(e){
-  console.error(e);
-  $("photoStatus").textContent="Photo upload failed: "+e.message;
- }
+const snap=await storage.ref(path).put(file);
+
+state.photos=state.photos||{};
+state.photos[key]=await snap.ref.getDownloadURL();
+}
+
+await save();
+
+$("photoStatus").textContent="Photo upload complete.";
+
+alert("Photos uploaded successfully.");
+
+render();
+
+}catch(e){
+console.error(e);
+$("photoStatus").textContent="Photo upload failed: "+e.message;
+}
 });
 
 /* FIREBASE CONNECTION AND LIVE UPDATES */
 function startFirebase(){
- try{
-  if(!firebase.apps.length)firebase.initializeApp(firebaseConfig);
 
-  auth=firebase.auth();
-  db=firebase.firestore();
-  storage=firebase.storage();
+try{
 
-  const ref=db.collection("tournaments").doc("main");
+if(!firebase.apps.length)firebase.initializeApp(firebaseConfig);
 
-  ref.onSnapshot(snap=>{
-   if(snap.exists){
-    state={...fresh(),...snap.data()};
-    state.history=state.history||[];
-    state.photos=state.photos||{winner:"",runner:""};
-    state.league=state.league||makeFixtures(state.teams);
+auth=firebase.auth();
+db=firebase.firestore();
+storage=firebase.storage();
 
-    render();
-    $("connection").textContent="Connected · Live updates active";
+const ref=db.collection("tournaments").doc("main");
 
-   }else{
-    $("connection").textContent="Tournament database is empty. Sign in as organizer to initialize it.";
-    if(isAdmin()){
-     ref.set(fresh()).catch(e=>{
-      console.error(e);
-      $("connection").textContent="Database setup error: "+e.message;
-     });
-    }
-   }
+ref.onSnapshot(snap=>{
 
-  },err=>{
-   console.error("Firestore listener error:",err);
-   $("connection").textContent="Database error: "+err.message;
-  });
+if(snap.exists){
 
-  auth.onAuthStateChanged(async u=>{
-   user=u;
+state={...fresh(),...snap.data()};
 
-   const authorized=isAdmin();
+state.history=state.history||[];
+state.photos=state.photos||{winner:"",runner:""};
+state.league=state.league||makeFixtures(state.teams);
 
-   $("loginBox").classList.toggle("hidden",authorized);
-   $("adminBox").classList.toggle("hidden",!authorized);
+/* Repair old missing Grand Final status */
+if(state.final&&!["upcoming","playing","completed"].includes(state.final.status)){
+state.final.status="upcoming";
+}
 
-   if(authorized){
-    try{
-     const snap=await ref.get();
-     if(!snap.exists)await ref.set(fresh());
-    }catch(e){
-     console.error(e);
-     $("loginMsg").textContent=e.message;
-    }
-   }
+render();
 
-   render();
-  });
+$("connection").textContent="Connected · Live updates active";
 
- }catch(e){
-  console.error(e);
-  $("connection").textContent="Firebase setup error: "+e.message;
- }
+}else{
+
+$("connection").textContent="Tournament database is empty. Sign in as organizer to initialize it.";
+
+if(isAdmin()){
+ref.set(firestoreSafeState()).catch(e=>{
+$("connection").textContent="Database setup error: "+e.message;
+});
+}
+
+}
+
+},err=>{
+console.error("Firestore listener error:",err);
+$("connection").textContent="Database error: "+err.message;
+});
+
+auth.onAuthStateChanged(async u=>{
+
+user=u;
+
+const authorized=isAdmin();
+
+$("loginBox").classList.toggle("hidden",authorized);
+$("adminBox").classList.toggle("hidden",!authorized);
+
+if(authorized){
+
+try{
+
+const snap=await ref.get();
+
+if(!snap.exists){
+await ref.set(firestoreSafeState());
+}
+
+}catch(e){
+console.error(e);
+$("loginMsg").textContent=e.message;
+}
+
+}
+
+render();
+
+});
+
+}catch(e){
+
+console.error(e);
+$("connection").textContent="Firebase setup error: "+e.message;
+
+}
+
 }
 
 startFirebase();
