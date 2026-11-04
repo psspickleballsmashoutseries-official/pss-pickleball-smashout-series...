@@ -90,7 +90,10 @@ function render(){
  $("nextList").innerHTML=available.slice(0,6).map(m=>matchCard(m)).join("")||'<p class="muted">No currently available fixture. Other matches may be in progress.</p>';
  $("fixturesList").innerHTML=league.map(m=>matchCard(m)).join("");
  $("standingsBody").innerHTML=standings().map((r,i)=>`<tr><td class="rank">${i+1}</td><td>${esc(r.name)}</td><td>${r.p}</td><td>${r.w}</td><td>${r.l}</td><td>${r.pts}</td><td>${r.diff>0?"+":""}${r.diff}</td><td>${r.pf}</td></tr>`).join("");
- renderFinal();if(user)renderAdmin();
+ renderFinal();
+if(user && user.uid === "beMJHnyDsxZABt54R6rkl5nKU3E3"){
+  renderAdmin();
+}
 }
 function renderFinal(){
  const allDone=state.league.length===15&&state.league.every(m=>m.status==="completed");
