@@ -169,7 +169,7 @@ th{color:var(--muted);font-size:10px;letter-spacing:.8px;text-transform:uppercas
     <tbody id="standingsBody"></tbody>
    </table>
   </div>
-  <p class="small">Win = +2 league points · Loss = −2 league points. Ranking: wins, head-to-head, point difference, points scored.</p>
+  <p class="small">Win = +2 league points · Loss = −2 league points. Ranking: wins → point difference → points scored → head-to-head.</p>
  </div>
 </section>
 
@@ -329,39 +329,121 @@ function activeTeams(except){
   .flatMap(m=>[m.a,m.b]);
 }
 
+/* NEW STANDINGS SYSTEM:
+   1. Wins
+   2. Point difference
+   3. Total points scored
+   4. Head-to-head (last tie-breaker)
+
+   For 3+ teams tied on the first 3 criteria,
+   compare wins only among those tied teams.
+*/
 function standings(){
+
  const rows=(state.teams||[]).map(name=>({
-  name,p:0,w:0,l:0,pts:0,pf:0,pa:0,diff:0,opp:{}
+  name,
+  p:0,
+  w:0,
+  l:0,
+  pts:0,
+  pf:0,
+  pa:0,
+  diff:0,
+  originalOrder:(state.teams||[]).indexOf(name)
  }));
+
  const map=Object.fromEntries(rows.map(r=>[r.name,r]));
 
- (state.league||[])
- .filter(m=>m.status==="completed"&&Number.isFinite(+m.scoreA)&&Number.isFinite(+m.scoreB))
- .forEach(m=>{
+ const completed=(state.league||[]).filter(m=>
+  m.status==="completed"&&
+  Number.isFinite(+m.scoreA)&&
+  Number.isFinite(+m.scoreB)
+ );
+
+ completed.forEach(m=>{
   const a=map[m.a],b=map[m.b];
   if(!a||!b)return;
 
-  a.p++;b.p++;
-  a.pf+=+m.scoreA;a.pa+=+m.scoreB;
-  b.pf+=+m.scoreB;b.pa+=+m.scoreA;
+  a.p++;
+  b.p++;
+
+  a.pf+=Number(m.scoreA);
+  a.pa+=Number(m.scoreB);
+
+  b.pf+=Number(m.scoreB);
+  b.pa+=Number(m.scoreA);
 
   if(+m.scoreA>+m.scoreB){
-   a.w++;b.l++;a.pts+=2;b.pts-=2;
-   a.opp[b.name]=1;b.opp[a.name]=-1;
+   a.w++;
+   b.l++;
+   a.pts+=2;
+   b.pts-=2;
   }else{
-   b.w++;a.l++;b.pts+=2;a.pts-=2;
-   a.opp[b.name]=-1;b.opp[a.name]=1;
+   b.w++;
+   a.l++;
+   b.pts+=2;
+   a.pts-=2;
   }
  });
 
- rows.forEach(r=>r.diff=r.pf-r.pa);
+ rows.forEach(r=>{
+  r.diff=r.pf-r.pa;
+ });
+
+ // First three ranking criteria
  rows.sort((a,b)=>
   b.w-a.w||
-  ((b.opp[a.name]||0)-(a.opp[b.name]||0))||
   b.diff-a.diff||
-  b.pf-a.pf||
-  a.name.localeCompare(b.name)
+  b.pf-a.pf
  );
+
+ // Group teams tied on the first three criteria.
+ // Head-to-head is used only inside each tied group.
+ let start=0;
+
+ while(start<rows.length){
+
+  let end=start+1;
+  const first=rows[start];
+
+  while(end<rows.length&&
+   rows[end].w===first.w&&
+   rows[end].diff===first.diff&&
+   rows[end].pf===first.pf){
+   end++;
+  }
+
+  const group=rows.slice(start,end);
+
+  if(group.length>1){
+
+   const groupNames=new Set(group.map(r=>r.name));
+   const h2h={};
+
+   group.forEach(r=>h2h[r.name]=0);
+
+   // Count head-to-head wins only against teams in this tied group.
+   completed.forEach(m=>{
+    if(!groupNames.has(m.a)||!groupNames.has(m.b))return;
+
+    if(+m.scoreA>+m.scoreB){
+     h2h[m.a]++;
+    }else if(+m.scoreB>+m.scoreA){
+     h2h[m.b]++;
+    }
+   });
+
+   group.sort((a,b)=>
+    h2h[b.name]-h2h[a.name]||
+    a.originalOrder-b.originalOrder
+   );
+
+   rows.splice(start,group.length,...group);
+  }
+
+  start=end;
+ }
+
  return rows;
 }
 
@@ -412,7 +494,9 @@ function render(){
   <tr>
    <td class="rank">${i+1}</td>
    <td>${esc(r.name)}</td>
-   <td>${r.p}</td><td>${r.w}</td><td>${r.l}</td>
+   <td>${r.p}</td>
+   <td>${r.w}</td>
+   <td>${r.l}</td>
    <td>${r.pts}</td>
    <td>${r.diff>0?"+":""}${r.diff}</td>
    <td>${r.pf}</td>
