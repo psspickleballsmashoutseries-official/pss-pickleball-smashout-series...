@@ -1,195 +1,621 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>PSS | Pickleball Smash Out Series</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#07152b">
+<title>PSS | Pickleball Smash Out Series</title>
 <style>
-:root{--navy:#07152b;--panel:#10233f;--panel2:#162d4d;--lime:#d9ee55;--teal:#38c7b4;--gold:#f5c66b;--muted:#aab8cc;--white:#f7f9fc;--red:#ff7777}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -15%,#1e4564 0,#07152b 48%,#050c18 100%);color:var(--white);font-family:Arial,Helvetica,sans-serif;min-height:100vh}
-header{padding:22px 16px 10px;text-align:center}.logo{width:min(220px,55vw);height:auto;object-fit:contain;filter:drop-shadow(0 8px 18px #0008)}.eyebrow{color:var(--lime);letter-spacing:3px;font-size:11px;font-weight:800;margin:5px 0}.subtitle{color:var(--muted);font-size:13px}
-main{max-width:1100px;margin:auto;padding:12px 16px 60px}.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:12px 0 18px}.live{color:var(--teal);font-size:12px;font-weight:bold}.tabs{display:flex;gap:7px;flex-wrap:wrap}.tab,button{border:1px solid #34506e;background:#10233f;color:white;padding:10px 14px;border-radius:10px;cursor:pointer;font-weight:700}.tab.active,button.primary{background:var(--lime);color:#14213a;border-color:var(--lime)}button:disabled{opacity:.4;cursor:not-allowed}.tab:hover,button:hover{filter:brightness(1.12)}
-.panel{background:linear-gradient(145deg,#112746,#0d1d35);border:1px solid #294363;border-radius:16px;padding:17px;margin:12px 0;box-shadow:0 10px 30px #0003}.panel h2{margin:0 0 13px;font-size:18px}.muted{color:var(--muted)}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.stat{background:#0a1a30;border:1px solid #294363;border-radius:12px;padding:14px}.stat strong{display:block;font-size:25px;color:var(--lime)}.stat span{font-size:11px;color:var(--muted)}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.match{background:#0a1a30;border:1px solid #294363;border-radius:13px;padding:13px}.matchhead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}.tag{font-size:10px;font-weight:800;letter-spacing:.8px;padding:5px 8px;border-radius:30px;background:#273d5c;color:#d9e5f5}.tag.playing{background:#5b4218;color:#ffe09a}.tag.completed{background:#12483f;color:#8af0d9}.teams{font-size:15px;font-weight:800;line-height:1.6}.score{font-size:22px;color:var(--lime);font-weight:900;white-space:nowrap}.matchfoot{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:10px;flex-wrap:wrap}.small{font-size:11px;color:var(--muted)}.tablewrap{overflow-x:auto}table{width:100%;border-collapse:collapse;min-width:550px}th,td{text-align:left;padding:11px 9px;border-bottom:1px solid #294363;font-size:13px}th{color:var(--muted);font-size:10px;letter-spacing:.8px;text-transform:uppercase}td:first-child{font-weight:bold}.rank{color:var(--lime);font-weight:900}.formrow{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}.formrow input,.formrow select{background:#07152b;border:1px solid #34506e;color:white;border-radius:9px;padding:10px;min-width:0}.formrow input{flex:1}.notice{padding:12px;border-radius:10px;background:#152e4d;color:#c8d7e9;font-size:13px;line-height:1.5}.warning{border:1px solid #80612a;background:#332916;color:#ffe0a1}.success{border:1px solid #236d5d;background:#10372f;color:#a7f3dc}.hidden{display:none!important}.sectiontitle{display:flex;justify-content:space-between;align-items:center;gap:10px}.organizer{border-color:#7b6b31}.champion{text-align:center;padding:25px;background:linear-gradient(135deg,#263d2c,#132a42);border:1px solid #8c8b39;border-radius:16px}.champion .cup{font-size:42px}.champion h2{font-size:26px;color:var(--lime);margin:6px}.foot{text-align:center;color:#71839b;font-size:11px;margin-top:28px}
-@media(max-width:650px){.stats{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.panel{padding:13px}header{padding-top:15px}.logo{width:180px}}
+:root{--navy:#07152b;--panel:#10233f;--lime:#d9ee55;--teal:#38c7b4;--muted:#aab8cc;--white:#f7f9fc}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(circle at 50% -15%,#1e4564 0,#07152b 48%,#050c18 100%);color:var(--white);font-family:Arial,Helvetica,sans-serif;min-height:100vh}
+header{padding:22px 16px 10px;text-align:center}
+.logo{width:min(220px,55vw);height:auto;object-fit:contain}
+.eyebrow{color:var(--lime);letter-spacing:3px;font-size:11px;font-weight:800;margin:5px 0}
+.subtitle,.small{color:var(--muted);font-size:12px}
+main{max-width:1100px;margin:auto;padding:12px 16px 60px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:12px 0 18px}
+.live{color:var(--teal);font-size:12px;font-weight:bold}
+.tabs{display:flex;gap:7px;flex-wrap:wrap}
+.tab,button{border:1px solid #34506e;background:#10233f;color:white;padding:10px 14px;border-radius:10px;cursor:pointer;font-weight:700}
+.tab.active,button.primary{background:var(--lime);color:#14213a;border-color:var(--lime)}
+button:disabled{opacity:.4;cursor:not-allowed}
+.panel{background:linear-gradient(145deg,#112746,#0d1d35);border:1px solid #294363;border-radius:16px;padding:17px;margin:12px 0;box-shadow:0 10px 30px #0003}
+.panel h2{margin:0 0 13px;font-size:18px}
+.muted{color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.stat{background:#0a1a30;border:1px solid #294363;border-radius:12px;padding:14px}
+.stat strong{display:block;font-size:25px;color:var(--lime)}
+.stat span{font-size:11px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.match{background:#0a1a30;border:1px solid #294363;border-radius:13px;padding:13px;margin-bottom:10px}
+.matchhead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}
+.tag{font-size:10px;font-weight:800;letter-spacing:.8px;padding:5px 8px;border-radius:30px;background:#273d5c;color:#d9e5f5}
+.tag.playing{background:#5b4218;color:#ffe09a}
+.tag.completed{background:#12483f;color:#8af0d9}
+.teams{font-size:15px;font-weight:800;line-height:1.6}
+.score{font-size:22px;color:var(--lime);font-weight:900;white-space:nowrap}
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:550px}
+th,td{text-align:left;padding:11px 9px;border-bottom:1px solid #294363;font-size:13px}
+th{color:var(--muted);font-size:10px;letter-spacing:.8px;text-transform:uppercase}
+.rank{color:var(--lime);font-weight:900}
+.formrow{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.formrow input,.formrow select{background:#07152b;border:1px solid #34506e;color:white;border-radius:9px;padding:10px;min-width:0}
+.formrow input{flex:1}
+.notice{padding:12px;border-radius:10px;background:#152e4d;color:#c8d7e9;font-size:13px;line-height:1.5}
+.success{border:1px solid #236d5d;background:#10372f;color:#a7f3dc}
+.hidden{display:none!important}
+.sectiontitle{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.organizer{border-color:#7b6b31}
+.champion{text-align:center;padding:25px;background:linear-gradient(135deg,#263d2c,#132a42);border:1px solid #8c8b39;border-radius:16px}
+.champion .cup{font-size:42px}
+.champion h2{font-size:26px;color:var(--lime);margin:6px}
+.foot{text-align:center;color:#71839b;font-size:11px;margin-top:28px}
+.danger{background:#54252c;border-color:#8a3c48}
+.photo{max-width:180px;max-height:180px;object-fit:cover;border-radius:12px;margin:8px}
+@media(max-width:650px){
+.stats{grid-template-columns:repeat(2,1fr)}
+.grid{grid-template-columns:1fr}
+.panel{padding:13px}
+header{padding-top:15px}
+.logo{width:180px}
+.tabs{width:100%}
+.tab{flex:1}
+}
 </style>
 </head>
 <body>
 <header>
-<img class="logo" src="pss-logo.png" alt="PSS Pickleball Smash Out Series logo" onerror="this.style.display='none'">
-<div class="eyebrow">PICKLEBALL SMASH OUT SERIES</div><div class="subtitle">One court. One champion. The smash starts here.</div>
+<img class="logo" src="pss-logo.png" alt="PSS Logo" onerror="this.style.display='none'">
+<div class="eyebrow">PICKLEBALL SMASH OUT SERIES</div>
+<div class="subtitle">One court. One champion. The smash starts here.</div>
 </header>
+
 <main>
-<div class="topbar"><div><div class="live">● LIVE TOURNAMENT BOARD</div><div class="small" id="connection">Connecting to live scoreboard…</div></div>
-<div class="tabs"><button class="tab active" data-tab="overview">Overview</button><button class="tab" data-tab="fixtures">Fixtures</button><button class="tab" data-tab="standings">Standings</button><button class="tab" data-tab="finals">Finals</button><button class="tab" data-tab="organizer">Organizer</button></div></div>
+<div class="topbar">
+<div>
+<div class="live">● LIVE TOURNAMENT BOARD</div>
+<div class="small" id="connection">Connecting to live scoreboard…</div>
+</div>
+<nav class="tabs">
+<button class="tab active" data-tab="overview">Overview</button>
+<button class="tab" data-tab="fixtures">Fixtures</button>
+<button class="tab" data-tab="standings">Standings</button>
+<button class="tab" data-tab="finals">Finals</button>
+<button class="tab" data-tab="history">History</button>
+<button class="tab" data-tab="organizer">Organizer</button>
+</nav>
+</div>
+
 <section id="overview" class="view">
 <div class="stats">
-<div class="stat"><strong id="totalMatches">15</strong><span>LEAGUE MATCHES</span></div><div class="stat"><strong id="doneMatches">0</strong><span>COMPLETED</span></div><div class="stat"><strong id="liveMatches">0</strong><span>PLAYING NOW</span></div><div class="stat"><strong id="teamsCount">6</strong><span>TEAMS</span></div>
+<div class="stat"><strong id="totalMatches">15</strong><span>LEAGUE MATCHES</span></div>
+<div class="stat"><strong id="doneMatches">0</strong><span>COMPLETED</span></div>
+<div class="stat"><strong id="liveMatches">0</strong><span>PLAYING NOW</span></div>
+<div class="stat"><strong id="teamsCount">6</strong><span>TEAMS</span></div>
 </div>
-<div class="panel"><div class="sectiontitle"><h2>Matches in progress</h2><span class="tag playing">LIVE</span></div><div id="liveList" class="grid"><p class="muted">No matches started yet.</p></div></div>
-<div class="panel"><h2>Next available fixtures</h2><p class="small">Fixtures are flexible. A match can start whenever both teams are free. A team already playing cannot start another match.</p><div id="nextList" class="grid"></div></div>
-<div class="panel"><h2>How PSS works</h2><div class="notice">LEVEL 1 · Six teams play a single round-robin league. Every team faces each opponent once (5 matches each).<br><br>LEVEL 2 · The top two qualify for one Grand Final. If a qualifying position remains tied after all tie-breakers, the organizer arranges a tie-breaker match.</div></div>
+<div class="panel">
+<div class="sectiontitle"><h2>Matches in progress</h2><span class="tag playing">LIVE</span></div>
+<div id="liveList" class="grid"><p class="muted">No matches started yet.</p></div>
+</div>
+<div class="panel">
+<h2>Next available fixtures</h2>
+<p class="small">A team already playing cannot start another match.</p>
+<div id="nextList" class="grid"></div>
+</div>
+<div class="panel">
+<h2>How PSS works</h2>
+<div class="notice">LEVEL 1 · Six teams play a single round-robin league. Every team faces each opponent once (5 matches each).<br><br>LEVEL 2 · The top two qualify for one Grand Final. A qualifying tie after all tie-breakers must be settled by an organizer-arranged tie-breaker.</div>
+</div>
 </section>
-<section id="fixtures" class="view hidden"><div class="panel"><h2>Level 1 · League fixtures</h2><p class="small">All 15 fixtures are listed from the start. The organizer changes match status and enters scores.</p><div id="fixturesList" class="grid"></div></div></section>
-<section id="standings" class="view hidden"><div class="panel"><h2>Level 1 · Live standings</h2><div class="tablewrap"><table><thead><tr><th>#</th><th>Team</th><th>P</th><th>W</th><th>L</th><th>Pts</th><th>Point diff.</th><th>Scored</th></tr></thead><tbody id="standingsBody"></tbody></table></div><p class="small">Win = +2 league points · Loss = −2 league points. Ranking: wins/league points, head-to-head, point difference, points scored.</p></div></section>
-<section id="finals" class="view hidden"><div class="panel"><h2>Level 2 · Grand Final</h2><div id="finalStatus" class="notice">The Grand Final unlocks when all 15 league matches are completed.</div><div id="finalMatch"></div></div></section>
-<section id="organizer" class="view hidden"><div class="panel organizer"><h2>Organizer access</h2><p class="small">Only the organizer account can edit team names, fixtures, statuses and scores. Public visitors can view the board.</p>
-<div id="loginBox"><div class="formrow"><input id="email" type="email" placeholder="Organizer email"><input id="password" type="password" placeholder="Password"></div><button class="primary" id="loginBtn">Organizer sign in</button><p class="small" id="loginMsg">Use the organizer account created in Firebase Authentication.</p></div>
-<div id="adminBox" class="hidden"><div class="sectiontitle"><p class="success notice">Organizer mode enabled</p><button id="logoutBtn">Sign out</button></div>
-<div class="panel"><h2>Team names</h2><p class="small">Edit names before the tournament begins. Save to update the public board.</p><div id="teamInputs"></div><button class="primary" id="saveTeams">Save team names</button></div>
-<div class="panel"><h2>Manage matches</h2><p class="small">Mark a match Playing when it starts. Complete it and enter both scores when finished. No team can be in two Playing matches.</p><div id="adminMatches"></div></div>
-<div class="panel"><h2>Tournament controls</h2><button id="resetBtn" class="danger">Reset tournament data</button><p class="small">Reset clears match scores/statuses and restores the 15 league fixtures. Use only before starting a new tournament.</p></div>
-</div></div></section>
+
+<section id="fixtures" class="view hidden">
+<div class="panel"><h2>Level 1 · League fixtures</h2><div id="fixturesList" class="grid"></div></div>
+</section>
+
+<section id="standings" class="view hidden">
+<div class="panel">
+<h2>Level 1 · Live standings</h2>
+<div class="tablewrap">
+<table>
+<thead><tr><th>#</th><th>Team</th><th>P</th><th>W</th><th>L</th><th>Pts</th><th>Point diff.</th><th>Scored</th></tr></thead>
+<tbody id="standingsBody"></tbody>
+</table>
+</div>
+<p class="small">Win = +2 league points · Loss = −2 league points. Ranking: wins, head-to-head, point difference, points scored.</p>
+</div>
+</section>
+
+<section id="finals" class="view hidden">
+<div class="panel"><h2>Level 2 · Grand Final</h2><div id="finalStatus" class="notice">Complete all 15 league matches to unlock the Grand Final.</div><div id="finalMatch"></div></div>
+</section>
+
+<section id="history" class="view hidden">
+<div class="panel"><h2>Previous tournaments</h2><div id="historyList"><p class="muted">No completed tournaments archived yet.</p></div></div>
+</section>
+
+<section id="organizer" class="view hidden">
+<div class="panel organizer">
+<h2>Organizer access</h2>
+<p class="small">Only the authorized Firebase account can edit. Public visitors can view the board.</p>
+<div id="loginBox">
+<div class="formrow">
+<input id="email" type="email" placeholder="Organizer email" autocomplete="username">
+<input id="password" type="password" placeholder="Password" autocomplete="current-password">
+</div>
+<button type="button" class="primary" id="loginBtn">Organizer sign in</button>
+<p class="small" id="loginMsg">Use your organizer account created in Firebase Authentication.</p>
+</div>
+
+<div id="adminBox" class="hidden">
+<div class="sectiontitle"><p class="success notice">Organizer mode enabled</p><button id="logoutBtn">Sign out</button></div>
+
+<div class="panel">
+<h2>Team names</h2>
+<p class="small">Edit names before the first match starts.</p>
+<div id="teamInputs"></div>
+<button class="primary" id="saveTeams">Save team names</button>
+</div>
+
+<div class="panel">
+<h2>Manage league matches</h2>
+<p class="small">A team cannot be in two matches marked Playing.</p>
+<div id="adminMatches"></div>
+</div>
+
+<div class="panel"><h2>Grand Final</h2><div id="finalAdmin"></div></div>
+
+<div class="panel">
+<h2>Winner photo station</h2>
+<p class="small">Photo uploads require Firebase Storage to be enabled and secured.</p>
+<div class="formrow">
+<label>Winner photo <input type="file" id="winnerPhoto" accept="image/*"></label>
+<label>Runner-up photo <input type="file" id="runnerPhoto" accept="image/*"></label>
+</div>
+<button type="button" id="uploadPhotos" class="primary">Upload photos</button>
+<div id="photoStatus" class="small"></div>
+</div>
+
+<div class="panel">
+<h2>Tournament controls</h2>
+<button id="endTournament" class="primary">End & archive tournament</button>
+<button id="resetBtn" class="danger">Reset current tournament</button>
+<p class="small">Ending archives the current results and starts a fresh tournament. Reset clears current results without archiving.</p>
+</div>
+</div>
+</div>
+</section>
 <div class="foot">PSS · PICKLEBALL SMASH OUT SERIES · LIVE SCOREBOARD</div>
 </main>
+
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-storage-compat.js"></script>
+
 <script>
-// 1) Paste your Firebase project's web config here.
-  const firebaseConfig = {
-  apiKey: "AIzaSyBY69YEsGGwNky-ZiSvFCY_FMI60a_Cqdk",
-  authDomain: "pss-pickleball-smashout-series.firebaseapp.com",
-  projectId: "pss-pickleball-smashout-series",
-  storageBucket: "pss-pickleball-smashout-series.firebasestorage.app",
-  messagingSenderId: "356365138348",
-  appId: "1:356365138348:web:728b3021f45237a54b6209",
-  measurementId: "G-QB8N3V3FW0"
+"use strict";
+
+const firebaseConfig = {
+ apiKey:"AIzaSyBY69YEsGGwNky-ZiSvFCY_FMI60a_Cqdk",
+ authDomain:"pss-pickleball-smashout-series.firebaseapp.com",
+ projectId:"pss-pickleball-smashout-series",
+ storageBucket:"pss-pickleball-smashout-series.firebasestorage.app",
+ messagingSenderId:"356365138348",
+ appId:"1:356365138348:web:728b3021f45237a54b6209",
+ measurementId:"G-QB8N3V3FW0"
 };
+
+const ORGANIZER_UID="beMJHnyDsxZABt54R6rkl5nKU3E3";
 const DEFAULT_TEAMS=["Team A","Team B","Team C","Team D","Team E","Team F"];
 const $=id=>document.getElementById(id);
-let db=null, auth=null, user=null, state={teams:DEFAULT_TEAMS,league:[],final:null};
-const makeFixtures=()=>{let a=[...DEFAULT_TEAMS],out=[];for(let r=0;r<5;r++){for(let i=0;i<3;i++)out.push({id:"L"+(out.length+1),type:"league",a:a[i],b:a[5-i],status:"upcoming",scoreA:null,scoreB:null});a=[a[0],a[5],a[1],a[2],a[3],a[4]];}return out;};
-function fresh(){return {teams:[...DEFAULT_TEAMS],league:makeFixtures(),final:null};}
-function isConfigured(){return firebaseConfig.apiKey!=="PASTE_API_KEY"&&firebaseConfig.projectId!=="PASTE_PROJECT_ID";}
-function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
-function activeTeams(except){return state.league.filter(m=>m.status==="playing"&&m.id!==except).flatMap(m=>[m.a,m.b]);}
+
+let db,auth,storage,user=null;
+let state={teams:[...DEFAULT_TEAMS],league:[],final:null,history:[],photos:{winner:"",runner:""}};
+
+const makeFixtures=(teams=DEFAULT_TEAMS)=>{
+ let a=[...teams],out=[];
+ for(let r=0;r<5;r++){
+  for(let i=0;i<3;i++){
+   out.push({id:"L"+(out.length+1),type:"league",a:a[i],b:a[5-i],status:"upcoming",scoreA:null,scoreB:null});
+  }
+  a=[a[0],a[5],a[1],a[2],a[3],a[4]];
+ }
+ return out;
+};
+
+function fresh(){
+ return {teams:[...DEFAULT_TEAMS],league:makeFixtures(),final:null,history:[],photos:{winner:"",runner:""}};
+}
+
+function esc(s){
+ return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+
+function isAdmin(){
+ return !!user&&user.uid===ORGANIZER_UID;
+}
+
+function activeTeams(except){
+ return (state.league||[]).filter(m=>m.status==="playing"&&m.id!==except).flatMap(m=>[m.a,m.b]);
+}
+
 function standings(){
- const rows=state.teams.map(name=>({name,p:0,w:0,l:0,pts:0,pf:0,pa:0,diff:0,opp:{}}));
+ const rows=(state.teams||[]).map(name=>({name,p:0,w:0,l:0,pts:0,pf:0,pa:0,diff:0,opp:{}}));
  const map=Object.fromEntries(rows.map(r=>[r.name,r]));
- state.league.filter(m=>m.status==="completed"&&Number.isFinite(+m.scoreA)&&Number.isFinite(+m.scoreB)).forEach(m=>{
-  const a=map[m.a],b=map[m.b];if(!a||!b)return;
-  a.p++;b.p++;a.pf+=+m.scoreA;a.pa+=+m.scoreB;b.pf+=+m.scoreB;b.pa+=+m.scoreA;
-  if(+m.scoreA>+m.scoreB){a.w++;b.l++;a.pts+=2;b.pts-=2;a.opp[b.name]=1;b.opp[a.name]=-1;}
-  else{b.w++;a.l++;b.pts+=2;a.pts-=2;a.opp[b.name]=-1;b.opp[a.name]=1;}
+
+ (state.league||[]).filter(m=>m.status==="completed"&&Number.isFinite(+m.scoreA)&&Number.isFinite(+m.scoreB)).forEach(m=>{
+  const a=map[m.a],b=map[m.b];
+  if(!a||!b)return;
+  a.p++;b.p++;
+  a.pf+=+m.scoreA;a.pa+=+m.scoreB;
+  b.pf+=+m.scoreB;b.pa+=+m.scoreA;
+  if(+m.scoreA>+m.scoreB){
+   a.w++;b.l++;a.pts+=2;b.pts-=2;
+   a.opp[b.name]=1;b.opp[a.name]=-1;
+  }else{
+   b.w++;a.l++;b.pts+=2;a.pts-=2;
+   a.opp[b.name]=-1;b.opp[a.name]=1;
+  }
  });
+
  rows.forEach(r=>r.diff=r.pf-r.pa);
- rows.sort((a,b)=>b.w-a.w || (b.opp[a.name]||0)-(a.opp[b.name]||0) || b.diff-a.diff || b.pf-a.pf || a.name.localeCompare(b.name));
+ rows.sort((a,b)=>b.w-a.w||((b.opp[a.name]||0)-(a.opp[b.name]||0))||b.diff-a.diff||b.pf-a.pf||a.name.localeCompare(b.name));
  return rows;
 }
-function statusTag(s){return `<span class="tag ${s==="playing"?"playing":s==="completed"?"completed":""}">${s.toUpperCase()}</span>`;}
-function matchCard(m,admin=false){
- const sc=m.status==="completed"?`<span class="score">${m.scoreA} – ${m.scoreB}</span>`:"";
- return `<div class="match"><div class="matchhead"><span class="small">${m.id} · ${m.type==="final"?"GRAND FINAL":"LEAGUE"}</span>${statusTag(m.status)}</div><div class="matchhead"><div class="teams">${esc(m.a)}<br>${esc(m.b)}</div>${sc}</div>${m.status==="playing"?'<div class="small">Match currently in progress</div>':""}</div>`;
+
+function statusTag(s){
+ return `<span class="tag ${s==="playing"?"playing":s==="completed"?"completed":""}">${esc(String(s||"upcoming").toUpperCase())}</span>`;
 }
+
+function matchCard(m){
+ return `<div class="match">
+ <div class="matchhead"><span class="small">${esc(m.id)} · ${m.type==="final"?"GRAND FINAL":"LEAGUE"}</span>${statusTag(m.status)}</div>
+ <div class="matchhead"><div class="teams">${esc(m.a)}<br>${esc(m.b)}</div>
+ ${m.status==="completed"?`<span class="score">${esc(m.scoreA)} – ${esc(m.scoreB)}</span>`:""}</div>
+ ${m.status==="playing"?'<div class="small">Match currently in progress</div>':""}
+ </div>`;
+}
+
 function render(){
- const league=state.league||[],done=league.filter(m=>m.status==="completed").length,live=league.filter(m=>m.status==="playing").length;
- $("totalMatches").textContent=league.length;$("doneMatches").textContent=done;$("liveMatches").textContent=live;$("teamsCount").textContent=state.teams.length;
- $("liveList").innerHTML=league.some(m=>m.status==="playing")?league.filter(m=>m.status==="playing").map(m=>matchCard(m)).join(""):'<p class="muted">No matches started yet.</p>';
- const busy=activeTeams();const available=league.filter(m=>m.status==="upcoming"&&!busy.includes(m.a)&&!busy.includes(m.b));
- $("nextList").innerHTML=available.slice(0,6).map(m=>matchCard(m)).join("")||'<p class="muted">No currently available fixture. Other matches may be in progress.</p>';
- $("fixturesList").innerHTML=league.map(m=>matchCard(m)).join("");
- $("standingsBody").innerHTML=standings().map((r,i)=>`<tr><td class="rank">${i+1}</td><td>${esc(r.name)}</td><td>${r.p}</td><td>${r.w}</td><td>${r.l}</td><td>${r.pts}</td><td>${r.diff>0?"+":""}${r.diff}</td><td>${r.pf}</td></tr>`).join("");
+ const league=state.league||[];
+ const done=league.filter(m=>m.status==="completed").length;
+ const live=league.filter(m=>m.status==="playing").length;
+
+ $("totalMatches").textContent=league.length;
+ $("doneMatches").textContent=done;
+ $("liveMatches").textContent=live;
+ $("teamsCount").textContent=(state.teams||[]).length;
+
+ $("liveList").innerHTML=live?league.filter(m=>m.status==="playing").map(matchCard).join(""):'<p class="muted">No matches started yet.</p>';
+
+ const busy=activeTeams();
+ const available=league.filter(m=>m.status==="upcoming"&&!busy.includes(m.a)&&!busy.includes(m.b));
+
+ $("nextList").innerHTML=available.slice(0,6).map(matchCard).join("")||'<p class="muted">No currently available fixture.</p>';
+ $("fixturesList").innerHTML=league.map(matchCard).join("")||'<p class="muted">No fixtures loaded.</p>';
+
+ $("standingsBody").innerHTML=standings().map((r,i)=>`<tr>
+ <td class="rank">${i+1}</td><td>${esc(r.name)}</td><td>${r.p}</td><td>${r.w}</td><td>${r.l}</td><td>${r.pts}</td><td>${r.diff>0?"+":""}${r.diff}</td><td>${r.pf}</td>
+ </tr>`).join("");
+
  renderFinal();
-if(user && user.uid === "beMJHnyDsxZABt54R6rkl5nKU3E3"){
-  renderAdmin();
+ renderHistory();
+ if(isAdmin())renderAdmin();
 }
-}
+
 function renderFinal(){
  const allDone=state.league.length===15&&state.league.every(m=>m.status==="completed");
  const rows=standings(),top=rows.slice(0,2);
+
  $("finalStatus").textContent=!allDone?"Complete all 15 league matches to unlock the Grand Final.":`Qualified: ${top[0].name} and ${top[1].name}.`;
+
  if(!allDone){$("finalMatch").innerHTML="";return;}
- if(!state.final){$("finalMatch").innerHTML=`<div class="notice success">The Grand Final is ready: <b>${esc(top[0].name)} vs ${esc(top[1].name)}</b>. Organizer: open Organizer → Create Grand Final.</div>`;return;}
- const f=state.final;$("finalMatch").innerHTML=matchCard(f)+(f.status==="completed"?`<div class="champion"><div class="cup">🏆</div><div class="small">PSS CHAMPION</div><h2>${esc(+f.scoreA>+f.scoreB?f.a:f.b)}</h2><p class="muted">Runner-up: ${esc(+f.scoreA>+f.scoreB?f.b:f.a)}</p></div>`:"");
-}
-async function save(){if(!db)throw Error("Firebase not configured");await db.collection("tournaments").doc("main").set(state);}
-async function ensureData(){
-  if(!user || user.uid !== "beMJHnyDsxZABt54R6rkl5nKU3E3"){
-    throw new Error("Organizer access required.");
-  }
 
-  const ref = db.collection("tournaments").doc("main");
-  const snap = await ref.get();
+ if(!state.final){
+  $("finalMatch").innerHTML=`<div class="notice success">Grand Final ready: <b>${esc(top[0].name)} vs ${esc(top[1].name)}</b>. Organizer can create it below.</div>`;
+  return;
+ }
 
-  if(!snap.exists){
-    await ref.set(fresh());
-  }
+ const f=state.final;
+ $("finalMatch").innerHTML=matchCard(f)+(f.status==="completed"?`
+ <div class="champion"><div class="cup">🏆</div><div class="small">PSS CHAMPION</div>
+ <h2>${esc(+f.scoreA>+f.scoreB?f.a:f.b)}</h2>
+ <p class="muted">Runner-up: ${esc(+f.scoreA>+f.scoreB?f.b:f.a)}</p></div>`:"");
 }
+
+function renderHistory(){
+ const h=state.history||[];
+ $("historyList").innerHTML=h.length?h.slice().reverse().map(t=>`
+ <div class="match">
+ <b>${esc(t.name||"PSS Tournament")}</b>
+ <div class="small">${esc(t.endedAt||"")}</div>
+ <p>Champion: <b>${esc(t.champion||"Not decided")}</b> · Runner-up: <b>${esc(t.runnerUp||"Not decided")}</b></p>
+ <p class="small">${(t.league||[]).filter(m=>m.status==="completed").length} league matches completed</p>
+ ${t.photos?.winner?`<img class="photo" src="${esc(t.photos.winner)}" alt="Winner">`:""}
+ ${t.photos?.runner?`<img class="photo" src="${esc(t.photos.runner)}" alt="Runner-up">`:""}
+ </div>`).join(""):'<p class="muted">No completed tournaments archived yet.</p>';
+}
+
+async function save(){
+ if(!db)throw Error("Firebase is not connected.");
+ if(!isAdmin())throw Error("Organizer access required.");
+ await db.collection("tournaments").doc("main").set(state);
+}
+
 function renderAdmin(){
- $("teamInputs").innerHTML=state.teams.map((t,i)=>`<div class="formrow"><input data-team="${i}" value="${esc(t)}" aria-label="Team ${i+1}"></div>`).join("");
- $("adminMatches").innerHTML=state.league.map(m=>{
- const busy=activeTeams(m.id),blocked=(m.status!=="playing"&&(busy.includes(m.a)||busy.includes(m.b)));
- return `<div class="match"><div class="matchhead"><b>${m.id}: ${esc(m.a)} vs ${esc(m.b)}</b>${statusTag(m.status)}</div>
- <div class="formrow"><select data-status="${m.id}"><option value="upcoming" ${m.status==="upcoming"?"selected":""}>Upcoming</option><option value="playing" ${m.status==="playing"?"selected":""} ${blocked?"disabled":""}>Playing</option><option value="completed" ${m.status==="completed"?"selected":""}>Completed</option></select>
- <input type="number" min="0" max="99" placeholder="Score ${esc(m.a)}" data-scorea="${m.id}" value="${m.scoreA??""}">
- <input type="number" min="0" max="99" placeholder="Score ${esc(m.b)}" data-scoreb="${m.id}" value="${m.scoreB??""}">
- <button class="primary" data-save="${m.id}">Save</button></div>${blocked?'<div class="small">Unavailable: one of these teams is already playing another match.</div>':""}</div>`;
+ $("teamInputs").innerHTML=(state.teams||[]).map((t,i)=>`
+ <div class="formrow"><input data-team="${i}" value="${esc(t)}" aria-label="Team ${i+1}"></div>`).join("");
+
+ $("adminMatches").innerHTML=(state.league||[]).map(m=>{
+  const busy=activeTeams(m.id);
+  const blocked=m.status!=="playing"&&(busy.includes(m.a)||busy.includes(m.b));
+  return `<div class="match">
+  <div class="matchhead"><b>${esc(m.id)}: ${esc(m.a)} vs ${esc(m.b)}</b>${statusTag(m.status)}</div>
+  <div class="formrow">
+  <select data-status="${esc(m.id)}">
+  <option value="upcoming" ${m.status==="upcoming"?"selected":""}>Upcoming</option>
+  <option value="playing" ${m.status==="playing"?"selected":""} ${blocked?"disabled":""}>Playing</option>
+  <option value="completed" ${m.status==="completed"?"selected":""}>Completed</option>
+  </select>
+  <input type="number" min="0" max="99" placeholder="Score ${esc(m.a)}" data-scorea="${esc(m.id)}" value="${m.scoreA??""}">
+  <input type="number" min="0" max="99" placeholder="Score ${esc(m.b)}" data-scoreb="${esc(m.id)}" value="${m.scoreB??""}">
+  <button type="button" class="primary" data-save="${esc(m.id)}">Save</button>
+  </div>
+  ${blocked?'<div class="small">Unavailable: one of these teams is already playing another match.</div>':""}
+  </div>`;
  }).join("");
- if(state.league.every(m=>m.status==="completed")&&!state.final)$("adminMatches").innerHTML+=`<button class="primary" id="createFinal">Create Grand Final (${esc(standings()[0].name)} vs ${esc(standings()[1].name)})</button>`;
- if(state.final)$("adminMatches").innerHTML+=`<div class="match"><b>GRAND FINAL · ${esc(state.final.a)} vs ${esc(state.final.b)}</b><div class="formrow"><select id="finalStatus"><option value="upcoming">Upcoming</option><option value="playing">Playing</option><option value="completed">Completed</option></select><input id="finalA" type="number" placeholder="Score ${esc(state.final.a)}" value="${state.final.scoreA??""}"><input id="finalB" type="number" placeholder="Score ${esc(state.final.b)}" value="${state.final.scoreB??""}"><button class="primary" id="saveFinal">Save final</button></div></div>`;
+
+ const allDone=state.league.length===15&&state.league.every(m=>m.status==="completed");
+
+ $("finalAdmin").innerHTML=!allDone?
+ '<p class="small">Complete all 15 league matches to create the Grand Final.</p>':
+ !state.final?
+ `<button type="button" class="primary" id="createFinal">Create Grand Final (${esc(standings()[0].name)} vs ${esc(standings()[1].name)})</button>`:
+ `<div class="match"><b>GRAND FINAL · ${esc(state.final.a)} vs ${esc(state.final.b)}</b>
+ <div class="formrow">
+ <select id="finalStatus">
+ <option value="upcoming" ${state.final.status==="upcoming"?"selected":""}>Upcoming</option>
+ <option value="playing" ${state.final.status==="playing"?"selected":""}>Playing</option>
+ <option value="completed" ${state.final.status==="completed"?"selected":""}>Completed</option>
+ </select>
+ <input id="finalA" type="number" min="0" max="99" placeholder="Score ${esc(state.final.a)}" value="${state.final.scoreA??""}">
+ <input id="finalB" type="number" min="0" max="99" placeholder="Score ${esc(state.final.b)}" value="${state.final.scoreB??""}">
+ <button type="button" class="primary" id="saveFinal">Save final</button>
+ </div></div>`;
 }
-document.addEventListener("click",async e=>{
- const tab=e.target.closest("[data-tab]");if(tab){document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x===tab));document.querySelectorAll(".view").forEach(x=>x.classList.toggle("hidden",x.id!==tab.dataset.tab));}
- if(e.target.id==="loginBtn"){try{await auth.signInWithEmailAndPassword($("email").value,$("password").value);$("loginMsg").textContent="Signed in.";}catch(err){$("loginMsg").textContent=err.message;}}
- if(e.target.id==="logoutBtn")auth.signOut();
- if(e.target.id==="saveTeams"){const names=[...document.querySelectorAll("[data-team]")].map(x=>x.value.trim());if(names.some(x=>!x)||new Set(names.map(x=>x.toLowerCase())).size!==6)return alert("Enter six different team names.");if(state.league.some(m=>m.status!=="upcoming"))return alert("Team names are locked after the first match starts.");const old=[...state.teams];state.teams=names;state.league.forEach(m=>{m.a=names[old.indexOf(m.a)];m.b=names[old.indexOf(m.b)];});await save();}
- if(e.target.dataset.save){const id=e.target.dataset.save,m=state.league.find(x=>x.id===id),status=document.querySelector(`[data-status="${id}"]`).value,sa=document.querySelector(`[data-scorea="${id}"]`).value,sb=document.querySelector(`[data-scoreb="${id}"]`).value;
-  if(status==="playing"&&activeTeams(id).some(t=>t===m.a||t===m.b))return alert("One of these teams is already playing another match.");
-  if(status==="completed"){if(sa===""||sb===""||+sa===+sb)return alert("Enter a valid non-tied final score.");if(Math.max(+sa,+sb)<11||Math.abs(+sa-+sb)<2)return alert("For PSS scoring, the winner needs at least 11 points and a 2-point lead.");m.scoreA=+sa;m.scoreB=+sb;}else{m.scoreA=null;m.scoreB=null;}m.status=status;await save();}
- if(e.target.id==="createFinal"){const r=standings();state.final={id:"FINAL",type:"final",a:r[0].name,b:r[1].name,status:"upcoming",scoreA:null,scoreB:null};await save();}
- if(e.target.id==="saveFinal"){const sa=$("finalA").value,sb=$("finalB").value,st=$("finalStatus").value;if(st==="completed"&&(sa===""||sb===""||+sa===+sb||Math.max(+sa,+sb)<11||Math.abs(+sa-+sb)<2))return alert("Enter a valid winning score (11 points minimum, win by 2).");state.final.status=st;state.final.scoreA=st==="completed"?+sa:null;state.final.scoreB=st==="completed"?+sb:null;await save();}
- if(e.target.id==="resetBtn"&&confirm("Reset all scores and statuses? Team names will return to defaults.")){state=fresh();await save();}
+
+/* NAVIGATION: each button has its own click listener */
+function showTab(id){
+ const valid=["overview","fixtures","standings","finals","history","organizer"];
+ if(!valid.includes(id))return;
+ document.querySelectorAll(".view").forEach(v=>{
+  v.classList.toggle("hidden",v.id!==id);
+ });
+ document.querySelectorAll(".tab[data-tab]").forEach(b=>{
+  b.classList.toggle("active",b.dataset.tab===id);
+ });
+}
+
+document.querySelectorAll(".tab[data-tab]").forEach(btn=>{
+ btn.addEventListener("click",()=>showTab(btn.dataset.tab));
 });
-authStateInit();
 
-function authStateInit(){
-  if(!isConfigured()){
-    $("connection").textContent="Firebase configuration missing.";
-    return;
+/* ORGANIZER LOGIN */
+$("loginBtn").addEventListener("click",async()=>{
+ try{
+  $("loginMsg").textContent="Signing in…";
+  await auth.signInWithEmailAndPassword($("email").value.trim(),$("password").value);
+  $("loginMsg").textContent="Signed in.";
+ }catch(e){
+  $("loginMsg").textContent=e.message;
+ }
+});
+
+$("logoutBtn").addEventListener("click",()=>auth.signOut());
+
+/* SAVE TEAM NAMES */
+$("saveTeams").addEventListener("click",async()=>{
+ try{
+  const names=[...document.querySelectorAll("[data-team]")].map(x=>x.value.trim());
+  if(names.some(x=>!x)||new Set(names.map(x=>x.toLowerCase())).size!==6)
+   throw Error("Enter six different team names.");
+  if(state.league.some(m=>m.status!=="upcoming"))
+   throw Error("Team names are locked after the first match starts.");
+  const old=[...state.teams];
+  state.teams=names;
+  state.league.forEach(m=>{
+   m.a=names[old.indexOf(m.a)];
+   m.b=names[old.indexOf(m.b)];
+  });
+  await save();
+  alert("Team names saved.");
+ }catch(e){alert(e.message);}
+});
+
+/* SAVE LEAGUE MATCH */
+$("adminMatches").addEventListener("click",async e=>{
+ const btn=e.target.closest("[data-save]");
+ if(!btn)return;
+ try{
+  const id=btn.dataset.save;
+  const m=state.league.find(x=>x.id===id);
+  if(!m)throw Error("Match not found.");
+
+  const status=document.querySelector(`[data-status="${id}"]`).value;
+  const sa=document.querySelector(`[data-scorea="${id}"]`).value;
+  const sb=document.querySelector(`[data-scoreb="${id}"]`).value;
+
+  if(status==="playing"&&activeTeams(id).some(t=>t===m.a||t===m.b))
+   throw Error("One of these teams is already playing another match.");
+
+  if(status==="completed"){
+   if(sa===""||sb===""||+sa===+sb)
+    throw Error("Enter a valid non-tied final score.");
+   if(Math.max(+sa,+sb)<11||Math.abs(+sa-+sb)<2)
+    throw Error("Winner needs at least 11 points and a 2-point lead.");
+   m.scoreA=+sa;
+   m.scoreB=+sb;
+  }else{
+   m.scoreA=null;
+   m.scoreB=null;
   }
 
-  try {
-    firebase.initializeApp(firebaseConfig);
-    auth = firebase.auth();
-    db = firebase.firestore();
+  m.status=status;
+  await save();
+ }catch(err){alert(err.message);}
+});
 
-    const ref = db.collection("tournaments").doc("main");
-
-    // Public visitors can view live tournament data
-    ref.onSnapshot(snap => {
-      if(snap.exists){
-        state = snap.data();
-        render();
-        $("connection").textContent="Connected · Live updates active";
-      } else {
-        $("connection").textContent="Waiting for tournament setup.";
-      }
-    }, err => {
-      $("connection").textContent="Database error: " + err.message;
-    });
-
-    // Organizer authentication
-    auth.onAuthStateChanged(async u => {
-      user = u;
-
-      const authorized = !!u &&
-        u.uid === "beMJHnyDsxZABt54R6rkl5nKU3E3";
-
-      $("loginBox").classList.toggle("hidden", authorized);
-      $("adminBox").classList.toggle("hidden", !authorized);
-
-      if(authorized){
-        try {
-          await ensureData();
-          render();
-        } catch(err) {
-          $("loginMsg").textContent=err.message;
-        }
-      }
-    });
-
-  } catch(e) {
-    $("connection").textContent="Firebase setup error: " + e.message;
+/* GRAND FINAL */
+$("finalAdmin").addEventListener("click",async e=>{
+ try{
+  if(e.target.id==="createFinal"){
+   const r=standings();
+   if(r.length<2)throw Error("Not enough teams.");
+   state.final={id:"FINAL",type:"final",a:r[0].name,b:r[1].name,status:"upcoming",scoreA:null,scoreB:null};
+   await save();
   }
+
+  if(e.target.id==="saveFinal"){
+   const sa=$("finalA").value;
+   const sb=$("finalB").value;
+   const st=$("finalStatus").value;
+
+   if(st==="completed"&&(sa===""||sb===""||+sa===+sb||Math.max(+sa,+sb)<11||Math.abs(+sa-+sb)<2))
+    throw Error("Enter a valid winning score (11 points minimum, win by 2).");
+
+   state.final.status=st;
+   state.final.scoreA=st==="completed"?+sa:null;
+   state.final.scoreB=st==="completed"?+sb:null;
+   await save();
+  }
+ }catch(err){alert(err.message);}
+});
+
+/* RESET CURRENT TOURNAMENT */
+$("resetBtn").addEventListener("click",async()=>{
+ if(!confirm("Reset current scores and statuses? This does not archive the tournament."))return;
+ try{
+  const history=state.history||[];
+  state=fresh();
+  state.history=history;
+  await save();
+ }catch(e){alert(e.message);}
+});
+
+/* END AND ARCHIVE TOURNAMENT */
+$("endTournament").addEventListener("click",async()=>{
+ if(!confirm("End and archive this tournament, then start a fresh one?"))return;
+ try{
+  const rows=standings();
+  const champ=state.final?.status==="completed"?
+   (+state.final.scoreA>+state.final.scoreB?state.final.a:state.final.b):"Not decided";
+  const runner=state.final?.status==="completed"?
+   (champ===state.final.a?state.final.b:state.final.a):"Not decided";
+
+  const archive={
+   name:"PSS Tournament "+new Date().toLocaleDateString(),
+   endedAt:new Date().toLocaleString(),
+   champion:champ,
+   runnerUp:runner,
+   teams:[...state.teams],
+   league:JSON.parse(JSON.stringify(state.league)),
+   final:state.final?JSON.parse(JSON.stringify(state.final)):null,
+   photos:{...(state.photos||{})},
+   standings:rows
+  };
+
+  state.history=[...(state.history||[]),archive];
+  const keep=state.history;
+  state=fresh();
+  state.history=keep;
+  await save();
+  showTab("history");
+  alert("Tournament archived. A fresh tournament is ready.");
+ }catch(e){alert("Could not archive: "+e.message);}
+});
+
+/* WINNER PHOTOS: FIREBASE STORAGE REQUIRED */
+$("uploadPhotos").addEventListener("click",async()=>{
+ try{
+  if(!storage)throw Error("Firebase Storage is not initialized.");
+  if(!isAdmin())throw Error("Organizer access required.");
+
+  const files=[["winnerPhoto","winner"],["runnerPhoto","runner"]];
+  for(const [input,key] of files){
+   const file=$(input).files[0];
+   if(!file)continue;
+   if(!file.type.startsWith("image/"))throw Error("Please select image files only.");
+   if(file.size>5*1024*1024)throw Error("Each photo must be 5 MB or smaller.");
+
+   const path=`tournament-photos/${Date.now()}-${key}-${file.name.replace(/[^a-zA-Z0-9._-]/g,"_")}`;
+   const snap=await storage.ref(path).put(file);
+   state.photos=state.photos||{};
+   state.photos[key]=await snap.ref.getDownloadURL();
+  }
+
+  await save();
+  $("photoStatus").textContent="Photo upload complete.";
+ }catch(e){
+  $("photoStatus").textContent="Photo upload failed: "+e.message;
+ }
+});
+
+/* FIREBASE CONNECTION AND LIVE UPDATES */
+function startFirebase(){
+ try{
+  if(!firebase.apps.length)firebase.initializeApp(firebaseConfig);
+
+  auth=firebase.auth();
+  db=firebase.firestore();
+  storage=firebase.storage();
+
+  const ref=db.collection("tournaments").doc("main");
+
+  ref.onSnapshot(async snap=>{
+   if(snap.exists){
+    state={...fresh(),...snap.data()};
+    state.history=state.history||[];
+    state.photos=state.photos||{winner:"",runner:""};
+    render();
+    $("connection").textContent="Connected · Live updates active";
+   }else{
+    $("connection").textContent="Setting up tournament…";
+    if(isAdmin()){
+     try{await ref.set(fresh());}
+     catch(e){$("connection").textContent="Database setup error: "+e.message;}
+    }
+   }
+  },err=>{
+   $("connection").textContent="Database error: "+err.message;
+  });
+
+  auth.onAuthStateChanged(async u=>{
+   user=u;
+   const authorized=isAdmin();
+
+   $("loginBox").classList.toggle("hidden",authorized);
+   $("adminBox").classList.toggle("hidden",!authorized);
+
+   if(authorized){
+    try{
+     const snap=await ref.get();
+     if(!snap.exists)await ref.set(fresh());
+    }catch(e){
+     $("loginMsg").textContent=e.message;
+    }
+   }
+   render();
+  });
+
+ }catch(e){
+  $("connection").textContent="Firebase setup error: "+e.message;
+ }
 }
+
+startFirebase();
+</script>
+</body>
+</html>
