@@ -139,18 +139,54 @@ document.addEventListener("click",async e=>{
  if(e.target.id==="resetBtn"&&confirm("Reset all scores and statuses? Team names will return to defaults.")){state=fresh();await save();}
 });
 authStateInit();
+
 function authStateInit(){
- if(!isConfigured()){$("connection").textContent="Setup required: add Firebase config in index.html.";return;}
- try{firebase.initializeApp(firebaseConfig);auth=firebase.auth();db=firebase.firestore();
- auth.onAuthStateChanged(u=>{user=u;$("loginBox").classList.toggle("hidden",!!u);$("adminBox").classList.toggle("hidden",!u);if(u)render();});
- ensureData().then(()=>{db.collection("tournaments").doc("main").onSnapshot(s=>{if(s.exists){state=s.data();render();}$("connection").textContent="Connected · updates appear automatically";},err=>$("connection").textContent="Live connection error: "+err.message);}).catch(err=>$("connection").textContent=err.message);
- }catch(e){$("connection").textContent="Firebase setup error: "+e.message;}
+  if(!isConfigured()){
+    $("connection").textContent="Firebase configuration missing.";
+    return;
+  }
+
+  try {
+    firebase.initializeApp(firebaseConfig);
+    auth = firebase.auth();
+    db = firebase.firestore();
+
+    const ref = db.collection("tournaments").doc("main");
+
+    // Public visitors can view live tournament data
+    ref.onSnapshot(snap => {
+      if(snap.exists){
+        state = snap.data();
+        render();
+        $("connection").textContent="Connected · Live updates active";
+      } else {
+        $("connection").textContent="Waiting for tournament setup.";
+      }
+    }, err => {
+      $("connection").textContent="Database error: " + err.message;
+    });
+
+    // Organizer authentication
+    auth.onAuthStateChanged(async u => {
+      user = u;
+
+      const authorized = !!u &&
+        u.uid === "beMJHnyDsxZABt54R6rkl5nKU3E3";
+
+      $("loginBox").classList.toggle("hidden", authorized);
+      $("adminBox").classList.toggle("hidden", !authorized);
+
+      if(authorized){
+        try {
+          await ensureData();
+          render();
+        } catch(err) {
+          $("loginMsg").textContent=err.message;
+        }
+      }
+    });
+
+  } catch(e) {
+    $("connection").textContent="Firebase setup error: " + e.message;
+  }
 }
- if(!isConfigured()){$("connection").textContent="Setup required: add Firebase config in index.html.";return;}
- try{firebase.initializeApp(firebaseConfig);auth=firebase.auth();db=firebase.firestore();
- auth.onAuthStateChanged(u=>{user=u;$("loginBox").classList.toggle("hidden",!!u);$("adminBox").classList.toggle("hidden",!u);if(u)render();});
- ensureData().then(()=>{db.collection("tournaments").doc("main").onSnapshot(s=>{if(s.exists){state=s.data();render();}$("connection").textContent="Connected · updates appear automatically";},err=>$("connection").textContent="Live connection error: "+err.message);}).catch(err=>$("connection").textContent=err.message);
- }catch(e){$("connection").textContent="Firebase setup error: "+e.message;}
-}
-</script>
-</body></html>
