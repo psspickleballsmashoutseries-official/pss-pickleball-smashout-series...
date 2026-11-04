@@ -764,53 +764,132 @@ $("adminMatches").addEventListener("click",async function(e){
 });
 
 /* GRAND FINAL */
-$("finalAdmin").addEventListener("click",async e=>{
- try{
-  if(e.target.id==="createFinal"){
-   const r=standings();
-   if(r.length<2)throw Error("Not enough teams.");
 
-   state.final={
-    id:"FINAL",
-    type:"final",
-    a:r[0].name,
-    b:r[1].name,
-    status:"upcoming",
-    scoreA:null,
-    scoreB:null
+/* GRAND FINAL - FIXED SCORE SAVING */
+$("finalAdmin").addEventListener("click", async function(e) {
+ const createBtn = e.target.closest("#createFinal");
+ const saveBtn = e.target.closest("#saveFinal");
+
+ try {
+  if (!isAdmin()) {
+   throw Error("Authorized organizer login required.");
+  }
+
+  // CREATE GRAND FINAL
+  if (createBtn) {
+   const allDone =
+    state.league.length === 15 &&
+    state.league.every(m => m.status === "completed");
+
+   if (!allDone) {
+    throw Error("Complete all 15 league matches first.");
+   }
+
+   if (state.final) {
+    throw Error("Grand Final already exists.");
+   }
+
+   const rows = standings();
+
+   if (rows.length < 2) {
+    throw Error("Not enough teams to create the final.");
+   }
+
+   state.final = {
+    id: "FINAL",
+    type: "final",
+    a: rows[0].name,
+    b: rows[1].name,
+    status: "upcoming",
+    scoreA: null,
+    scoreB: null
    };
 
    await save();
    render();
+
+   alert("Grand Final created successfully!");
+   return;
   }
 
-  if(e.target.id==="saveFinal"){
-   const sa=$("finalA").value;
-   const sb=$("finalB").value;
-   const st=$("finalStatus").value;
+  // SAVE GRAND FINAL SCORE
+  if (saveBtn) {
+   if (!state.final) {
+    throw Error("Create the Grand Final first.");
+   }
 
-   if(st==="completed"){
-    if(sa===""||sb===""||Number(sa)===Number(sb)||
-       Math.max(Number(sa),Number(sb))<11||
-       Math.abs(Number(sa)-Number(sb))<2){
-     throw Error("Enter a valid winning score (11 points minimum, win by 2).");
+   const sa = $("finalA").value.trim();
+   const sb = $("finalB").value.trim();
+   const st = $("finalStatus").value;
+
+   let scoreA = null;
+   let scoreB = null;
+
+   if (st === "completed") {
+    if (sa === "" || sb === "") {
+     throw Error("Enter both Grand Final scores.");
+    }
+
+    scoreA = Number(sa);
+    scoreB = Number(sb);
+
+    if (!Number.isInteger(scoreA) || !Number.isInteger(scoreB)) {
+     throw Error("Scores must be whole numbers.");
+    }
+
+    if (
+     scoreA < 0 || scoreB < 0 ||
+     scoreA > 99 || scoreB > 99
+    ) {
+     throw Error("Scores must be between 0 and 99.");
+    }
+
+    if (scoreA === scoreB) {
+     throw Error("A Grand Final cannot end in a tie.");
+    }
+
+    if (
+     Math.max(scoreA, scoreB) < 11 ||
+     Math.abs(scoreA - scoreB) < 2
+    ) {
+     throw Error("Winner needs at least 11 points and a 2-point lead.");
     }
    }
 
-   state.final.status=st;
-   state.final.scoreA=st==="completed"?Number(sa):null;
-   state.final.scoreB=st==="completed"?Number(sb):null;
+   const oldFinal = { ...state.final };
 
-   await save();
-   alert("Grand Final saved successfully.");
-   render();
+   saveBtn.disabled = true;
+   saveBtn.textContent = "Saving...";
+
+   try {
+    state.final.status = st;
+    state.final.scoreA = scoreA;
+    state.final.scoreB = scoreB;
+
+    await save();
+
+    $("connection").textContent =
+     "Connected · Grand Final saved successfully";
+
+    alert("Grand Final score saved successfully!");
+    render();
+
+   } catch (saveError) {
+    state.final = oldFinal;
+    throw saveError;
+   }
+
+   return;
   }
 
- }catch(err){
-  console.error(err);
-  alert("Could not save Grand Final: "+err.message);
+ } catch (err) {
+  console.error("Grand Final saving error:", err);
+  alert("Grand Final could not be saved:\n" + err.message);
+
+  if (isAdmin()) renderAdmin();
  }
 });
+
 
 /* RESET CURRENT TOURNAMENT */
 $("resetBtn").addEventListener("click",async()=>{
