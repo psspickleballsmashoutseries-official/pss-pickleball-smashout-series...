@@ -138,7 +138,7 @@ LEVEL 2 · The top two qualify for one Grand Final. A qualifying tie after all t
 <section id="finals" class="view hidden">
 <div class="panel">
 <h2>Level 2 · Grand Final</h2>
-<div id="finalStatus" class="notice">Complete all 15 league matches to unlock the Grand Final.</div>
+<div id="finalStatusMessage" class="notice">Complete all 15 league matches to unlock the Grand Final.</div>
 <div id="finalMatch"></div>
 </div>
 </section>
@@ -227,7 +227,7 @@ authDomain:"pss-pickleball-smashout-series.firebaseapp.com",
 projectId:"pss-pickleball-smashout-series",
 storageBucket:"pss-pickleball-smashout-series.firebasestorage.app",
 messagingSenderId:"356365138348",
-appId:"1:356365138348:web:728b3021f45237a54b6209",
+appId:"1:728b3021f45237a54b6209",
 measurementId:"G-QB8N3V3FW0"
 };
 
@@ -437,7 +437,7 @@ function renderFinal(){
 const allDone=state.league.length===15&&state.league.every(m=>m.status==="completed");
 const rows=standings(),top=rows.slice(0,2);
 
-$("finalStatus").textContent=!allDone?
+$("finalStatusMessage").textContent=!allDone?
 "Complete all 15 league matches to unlock the Grand Final.":
 `Qualified: ${top[0].name} and ${top[1].name}.`;
 
@@ -479,11 +479,34 @@ ${t.photos?.runner?`<img class="photo" src="${esc(t.photos.runner)}" alt="Runner
 `).join(""):'<p class="muted">No completed tournaments archived yet.</p>';
 }
 
-/* FIRESTORE SAFETY FIX */
+/* FIRESTORE SAFETY */
+function cleanForFirestore(value){
+if(value===undefined)return undefined;
+if(value===null)return null;
+
+if(Array.isArray(value)){
+return value.map(v=>{
+const cleaned=cleanForFirestore(v);
+return cleaned===undefined?null:cleaned;
+});
+}
+
+if(typeof value==="object"){
+const out={};
+Object.keys(value).forEach(key=>{
+const cleaned=cleanForFirestore(value[key]);
+if(cleaned!==undefined)out[key]=cleaned;
+});
+return out;
+}
+
+if(typeof value==="number"&&!Number.isFinite(value))return null;
+
+return value;
+}
+
 function firestoreSafeState(){
-const payload=JSON.parse(JSON.stringify(state,(key,value)=>
-value===undefined?null:value
-));
+const payload=cleanForFirestore(state);
 
 if(payload.final){
 const allowed=["upcoming","playing","completed"];
@@ -506,9 +529,7 @@ async function save(){
 if(!db)throw Error("Firebase is not connected.");
 if(!isAdmin())throw Error("Organizer access required.");
 
-const safeData=firestoreSafeState();
-
-await db.collection("tournaments").doc("main").set(safeData);
+await db.collection("tournaments").doc("main").set(firestoreSafeState());
 }
 
 function renderAdmin(){
@@ -554,7 +575,6 @@ $("finalAdmin").innerHTML=`<button type="button" class="primary" id="createFinal
 return;
 }
 
-/* Repair old Grand Final records with missing status */
 if(!["upcoming","playing","completed"].includes(state.final.status)){
 state.final.status="upcoming";
 }
@@ -563,7 +583,7 @@ $("finalAdmin").innerHTML=`
 <div class="match">
 <b>GRAND FINAL · ${esc(state.final.a)} vs ${esc(state.final.b)}</b>
 <div class="formrow">
-<select id="finalStatus">
+<select id="finalStatusSelect">
 <option value="upcoming" ${state.final.status==="upcoming"?"selected":""}>Upcoming</option>
 <option value="playing" ${state.final.status==="playing"?"selected":""}>Playing</option>
 <option value="completed" ${state.final.status==="completed"?"selected":""}>Completed</option>
@@ -691,9 +711,9 @@ if(Number(sa)<0||Number(sb)<0||Number(sa)>99||Number(sb)>99){
 throw Error("Scores must be between 0 and 99.");
 }
 
-if(Math.max(Number(sa),Number(sb))<11||
-Math.abs(Number(sa)-Number(sb))<2){
-throw Error("Winner needs at least 11 points and a 2-point lead.");
+/* UPDATED RULE: NO WIN BY 2 REQUIRED */
+if(Math.max(Number(sa),Number(sb))<11){
+throw Error("The winning team must score at least 11 points.");
 }
 
 m.scoreA=Number(sa);
@@ -729,7 +749,7 @@ saveInProgress=false;
 }
 });
 
-/* GRAND FINAL - FIXED */
+/* GRAND FINAL */
 $("finalAdmin").addEventListener("click",async function(e){
 
 const createBtn=e.target.closest("#createFinal");
@@ -788,18 +808,22 @@ if(!state.final){
 throw Error("Create the Grand Final first.");
 }
 
-const statusEl=$("finalStatus");
+const statusEl=$("finalStatusSelect");
 const aEl=$("finalA");
 const bEl=$("finalB");
 
-const st=statusEl?.value||"upcoming";
+if(!statusEl||!aEl||!bEl){
+throw Error("Grand Final fields not found. Refresh and try again.");
+}
+
+const st=statusEl.value;
 
 if(!["upcoming","playing","completed"].includes(st)){
 throw Error("Choose a valid Grand Final status.");
 }
 
-const sa=aEl?.value.trim()??"";
-const sb=bEl?.value.trim()??"";
+const sa=aEl.value.trim();
+const sb=bEl.value.trim();
 
 let scoreA=null;
 let scoreB=null;
@@ -825,8 +849,9 @@ if(scoreA===scoreB){
 throw Error("A Grand Final cannot end in a tie.");
 }
 
-if(Math.max(scoreA,scoreB)<11||Math.abs(scoreA-scoreB)<2){
-throw Error("Winner needs at least 11 points and a 2-point lead.");
+/* UPDATED RULE: NO WIN BY 2 REQUIRED */
+if(Math.max(scoreA,scoreB)<11){
+throw Error("The winning team must score at least 11 points.");
 }
 }
 
@@ -837,7 +862,6 @@ saveBtn.textContent="Saving...";
 
 try{
 
-/* IMPORTANT: Always give final.status a valid value */
 state.final={
 ...state.final,
 status:st,
@@ -1007,7 +1031,6 @@ state.history=state.history||[];
 state.photos=state.photos||{winner:"",runner:""};
 state.league=state.league||makeFixtures(state.teams);
 
-/* Repair old missing Grand Final status */
 if(state.final&&!["upcoming","playing","completed"].includes(state.final.status)){
 state.final.status="upcoming";
 }
