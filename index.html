@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,8 +63,6 @@ th{color:var(--muted);font-size:10px;letter-spacing:.8px;text-transform:uppercas
 .danger{background:#54252c;border-color:#8a3c48}
 .photo{max-width:180px;max-height:180px;object-fit:cover;border-radius:12px;margin:8px}
 .pooltitle{color:var(--lime);margin:18px 0 10px}
-.archive{border:1px solid #34506e;background:#0a1a30;border-radius:12px;padding:14px;margin:12px 0}
-.archive h3{margin:0 0 8px}
 @media(max-width:650px){
  .grid{grid-template-columns:1fr}.panel{padding:13px}
  header{padding-top:15px}.logo{width:180px}
@@ -91,7 +88,6 @@ th{color:var(--muted);font-size:10px;letter-spacing:.8px;text-transform:uppercas
   <button class="tab active" data-tab="fixtures">Fixtures</button>
   <button class="tab" data-tab="standings">Standings</button>
   <button class="tab" data-tab="finals">Finals</button>
-  <button class="tab" data-tab="history">Previous</button>
   <button class="tab" data-tab="organizer">Organizer</button>
  </nav>
 </div>
@@ -124,13 +120,6 @@ th{color:var(--muted);font-size:10px;letter-spacing:.8px;text-transform:uppercas
  <div class="panel">
   <h2>Level 2 · Knockout Stage</h2>
   <div id="knockoutPublic"></div>
- </div>
-</section>
-
-<section id="history" class="view hidden">
- <div class="panel">
-  <h2>Previous Tournaments</h2>
-  <div id="historyList"></div>
  </div>
 </section>
 
@@ -331,7 +320,6 @@ function loserOf(m){
  return +m.scoreA>+m.scoreB?m.b:m.a;
 }
 
-/* Create knockout fixtures only after all 20 pool matches are complete */
 function prepareSemifinals(){
  if(!allLeagueDone())return;
  if((state.knockout||[]).some(m=>m.type==="semifinal"))return;
@@ -345,7 +333,6 @@ function prepareSemifinals(){
  ];
 }
 
-/* Create Grand Final after both semifinals are complete */
 function prepareGrandFinal(){
  if(!allSemisDone())return;
  if((state.knockout||[]).some(m=>m.type==="final"))return;
@@ -420,25 +407,9 @@ function championHTML(m){
  </div>`;
 }
 
+/* Archive data stays in Firebase; no public Previous tab is displayed. */
 function renderHistory(){
- const list=state.history||[];
- $("historyList").innerHTML=list.length?list.slice().reverse().map((h,i)=>`
-  <div class="archive">
-   <h3>${esc(h.name||"Previous PSS Tournament")}</h3>
-   <div class="small">Ended: ${esc(h.endedAt||"Date not recorded")}</div>
-   <p><b>Champion:</b> ${esc(h.champion||"Not decided")}</p>
-   <p><b>Runner-up:</b> ${esc(h.runnerUp||"Not decided")}</p>
-   <p class="small">${(h.teams||[]).length} teams · ${(h.league||[]).length} league matches</p>
-   <details><summary>View archived results</summary>
-    <h4>League matches</h4>
-    ${(h.league||[]).map(matchCard).join("")}
-    ${h.final?`<h4>Final</h4>${matchCard(h.final)}`:""}
-    ${h.knockout? h.knockout.map(matchCard).join(""):""}
-    ${h.photos?.winner?`<img class="photo" src="${esc(h.photos.winner)}" alt="Archived winner">`:""}
-    ${h.photos?.runner?`<img class="photo" src="${esc(h.photos.runner)}" alt="Archived runner-up">`:""}
-   </details>
-  </div>
- `).join(""):'<p class="muted">No previous tournaments archived yet.</p>';
+ // Intentionally not displayed on the public website.
 }
 
 function renderAdmin(){
@@ -499,7 +470,6 @@ function render(){
  $("poolAStandings").innerHTML=renderTable("A");
  $("poolBStandings").innerHTML=renderTable("B");
  renderKnockout();
- renderHistory();
  if(isAdmin())renderAdmin();
 }
 
@@ -529,7 +499,7 @@ async function save(){
 }
 
 function showTab(id){
- const valid=["fixtures","standings","finals","history","organizer"];
+ const valid=["fixtures","standings","finals","organizer"];
  if(!valid.includes(id))return;
  document.querySelectorAll(".view").forEach(v=>v.classList.toggle("hidden",v.id!==id));
  document.querySelectorAll(".tab[data-tab]").forEach(b=>b.classList.toggle("active",b.dataset.tab===id));
@@ -666,7 +636,9 @@ $("endTournament").addEventListener("click",async()=>{
   };
   const history=[...(state.history||[]),archive];
   state=fresh();state.history=history;
-  await save();showTab("history");render();
+  await save();
+  showTab("fixtures");
+  render();
   alert("Tournament archived. Your new tournament is ready.");
  }catch(e){alert("Could not archive: "+e.message);}
 });
